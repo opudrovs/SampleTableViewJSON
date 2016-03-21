@@ -11,7 +11,7 @@ import UIKit
 
 class ContentItem {
     var blurb: String?
-    var datePosted: Int?
+    var datePublished: Int?
     var url: String?
     var title: String?
     var urlImage: String?
@@ -21,14 +21,14 @@ class ContentItem {
 
     init(json: NSDictionary) {
         self.blurb = json["blurb"] as? String
-        self.datePosted = json["datePosted"] as? Int
+        self.datePublished = json["datePublished"] as? Int
         self.url = json["url"] as? String
         self.title = json["title"] as? String
         self.urlImage = json["urlImage"] as? String
 
         // Convert milliseconds since 1970 to a human-readable date string
-        if let datePosted = self.datePosted {
-            let timeInterval = NSTimeInterval(datePosted)
+        if let datePublished = self.datePublished {
+            let timeInterval = NSTimeInterval(datePublished)
             let date = NSDate(timeIntervalSince1970: timeInterval)
 
             let dateFormatter = NSDateFormatter()
