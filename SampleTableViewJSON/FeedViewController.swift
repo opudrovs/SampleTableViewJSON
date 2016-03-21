@@ -244,11 +244,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case .Date:
             if sortOrder == .Descending {
                 contentArray.sortInPlace {
-                    $0.datePosted > $1.datePosted
+                    $0.datePublished > $1.datePublished
                 }
             } else {
                 contentArray.sortInPlace {
-                    $0.datePosted < $1.datePosted
+                    $0.datePublished < $1.datePublished
                 }
             }
             break
