@@ -65,8 +65,8 @@
 		770EC59E1AC6C4E2005F1FFB = {
 			isa = PBXGroup;
 			children = (
-				77BBEB261C9F574C00EC2455 /* SampleTableViewJSONTests */,
 				77BBEB061C9F567400EC2455 /* SampleTableViewJSON */,
+				77BBEB261C9F574C00EC2455 /* SampleTableViewJSONTests */,
 				770EC5A81AC6C4E2005F1FFB /* Products */,
 			);
 			sourceTree = "<group>";
