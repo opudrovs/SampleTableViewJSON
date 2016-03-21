@@ -7,9 +7,19 @@ Open SampleTableViewJSON.xcodeproj in the latest release version of Xcode (teste
 
 ## Usage
 
-This sample app demonstrates:
+This app demonstrates how to
 
+* load data from a custom REST API and parse it to populate table view cells with title, description, image preview, and publishing date of example blog posts.
+* sort posts by title or date in ascending or descending order.
+* search(filter) posts in a table view by letter combination in title or description.
+* open a complete post in a UIWebView when a table view cell is tapped.
+* make UI adjust to all screen sizes with the help of auto layout constraints.
+* use best practices and style guides to create easily readable and well-documented code.
 
+## To Do
+
+* add lazy (progressive or on demand) loading of preview images.
+* add third-party libraries to demonstrate usage of CocoaPods.
 
 ## History
 
@@ -17,4 +27,4 @@ This sample app demonstrates:
 
 ## Credits
 
-(c) 2016 Olga Pudrovska
+&copy; 2016 Olga Pudrovska
