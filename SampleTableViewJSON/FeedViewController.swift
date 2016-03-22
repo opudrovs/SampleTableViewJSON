@@ -189,11 +189,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
 
                     // Sort tableView initially
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    dispatch_async(dispatch_get_main_queue()) {
                         self.activityIndicator.stopAnimating()
                         self.tableView.hidden = false
                         self.sortTableView()
-                    })
+                    }
                 }
             } catch {
                 print(error)
