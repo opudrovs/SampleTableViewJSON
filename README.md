@@ -20,6 +20,8 @@ This app demonstrates how to
 
 * add lazy (progressive or on demand) loading of preview images.
 * add third-party libraries to demonstrate usage of CocoaPods.
+* move JSON parsing to a separate class with data validation.
+* add tests (particularly for JSON parsing and data validation).
 
 ## History
 
