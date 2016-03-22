@@ -30,3 +30,7 @@ This app demonstrates how to
 ## Credits
 
 &copy; 2016 Olga Pudrovska
+
+## Screencast Demo
+
+![Screencast Demo](https://cloud.githubusercontent.com/assets/8824708/13951736/74e781d2-f03b-11e5-850b-91597f651e4b.gif "Screencast demo")
