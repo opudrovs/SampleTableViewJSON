@@ -52,7 +52,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
 
         // Set view title
-        self.title = "Content Item"
+        self.title = "Posts"
 
         // Load JSON
 
