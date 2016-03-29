@@ -9,38 +9,38 @@
 import Foundation
 import UIKit
 
-class ContentItem {
-    var blurb: String?
-    var datePublished: Int?
-    var url: String?
-    var title: String?
-    var urlImage: String?
+struct ContentItem {
+    var blurb: String
+    var url: String
+    var title: String
+    var datePublished: Int
+    var urlImage: String
     // auxilliary
-    var dateFormatted: String?
+    var dateFormatted: String
     var image: UIImage?
 
-    init(json: NSDictionary) {
-        self.blurb = json["blurb"] as? String
-        self.datePublished = json["datePublished"] as? Int
-        self.url = json["url"] as? String
-        self.title = json["title"] as? String
-        self.urlImage = json["urlImage"] as? String
+    init(blurb: String, url: String, title: String, datePublished: Int, urlImage: String) {
+        self.blurb = blurb
+        self.url = url
+        self.title = title
+        self.datePublished = datePublished
+        self.urlImage = urlImage
 
         // Convert milliseconds since 1970 to a human-readable date string
-        if let datePublished = self.datePublished {
-            let timeInterval = NSTimeInterval(datePublished)
-            let date = NSDate(timeIntervalSince1970: timeInterval)
+        let timeInterval = NSTimeInterval(datePublished)
+        let date = NSDate(timeIntervalSince1970: timeInterval)
 
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
 
-            self.dateFormatted = dateFormatter.stringFromDate(date)
-        } else {
-            self.dateFormatted = ""
-        }
+        self.dateFormatted = dateFormatter.stringFromDate(date)
 
-        if let urlImage = urlImage, imageURL = NSURL(string: urlImage), imageData = NSData(contentsOfURL: imageURL) {
+        if let imageURL = NSURL(string: urlImage), imageData = NSData(contentsOfURL: imageURL) {
             self.image = UIImage(data: imageData)
         }
     }
+
+    //private func setAuxilliaryProperties() {
+
+    //}
 }
