@@ -211,14 +211,14 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let segmentedControl = UISegmentedControl(items: items)
         // do not sort initially
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: "didPressSortOrder:", forControlEvents: UIControlEvents.ValueChanged)
+        segmentedControl.addTarget(self, action: #selector(FeedViewController.didPressSortOrder(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         // create items
         // asc/desc
         let directionItem: UIBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 
         // sort
-        let sortItem: UIBarButtonItem = UIBarButtonItem(title: "Sort", style: UIBarButtonItemStyle.Plain, target: self, action: "didPressSortType:")
+        let sortItem: UIBarButtonItem = UIBarButtonItem(title: "Sort", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
 
         // add items to bar
         self.navigationItem.setLeftBarButtonItem(directionItem, animated: false)

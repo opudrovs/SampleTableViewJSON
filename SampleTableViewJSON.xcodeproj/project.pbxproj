@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		77BBEB151C9F567400EC2455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB071C9F567400EC2455 /* AppDelegate.swift */; };
-		77BBEB161C9F567400EC2455 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BBEB081C9F567400EC2455 /* LaunchScreen.xib */; };
-		77BBEB171C9F567400EC2455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77BBEB0A1C9F567400EC2455 /* Main.storyboard */; };
-		77BBEB181C9F567400EC2455 /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB0C1C9F567400EC2455 /* ContentItem.swift */; };
-		77BBEB191C9F567400EC2455 /* ContentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB0D1C9F567400EC2455 /* ContentItemViewController.swift */; };
-		77BBEB1A1C9F567400EC2455 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB0E1C9F567400EC2455 /* FeedTableViewCell.swift */; };
-		77BBEB1B1C9F567400EC2455 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB0F1C9F567400EC2455 /* FeedViewController.swift */; };
-		77BBEB1C1C9F567400EC2455 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77BBEB101C9F567400EC2455 /* Images.xcassets */; };
+		777A86841CAA310A0084663E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86721CAA310A0084663E /* AppDelegate.swift */; };
+		777A86851CAA310A0084663E /* ContentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86741CAA310A0084663E /* ContentItemViewController.swift */; };
+		777A86861CAA310A0084663E /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86751CAA310A0084663E /* FeedTableViewCell.swift */; };
+		777A86871CAA310A0084663E /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86761CAA310A0084663E /* FeedViewController.swift */; };
+		777A86881CAA310A0084663E /* ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86781CAA310A0084663E /* ContentItem.swift */; };
+		777A86891CAA310A0084663E /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A867A1CAA310A0084663E /* DataProvider.swift */; };
+		777A868A1CAA310A0084663E /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A867C1CAA310A0084663E /* JSONParser.swift */; };
+		777A868B1CAA310A0084663E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777A867E1CAA310A0084663E /* LaunchScreen.xib */; };
+		777A868C1CAA310A0084663E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777A86801CAA310A0084663E /* Main.storyboard */; };
+		777A868D1CAA310A0084663E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777A86821CAA310A0084663E /* Images.xcassets */; };
 		77BBEB2A1C9F574C00EC2455 /* SampleTableViewJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BBEB281C9F574C00EC2455 /* SampleTableViewJSONTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,15 +33,17 @@
 /* Begin PBXFileReference section */
 		770EC5A71AC6C4E2005F1FFB /* SampleTableViewJSON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleTableViewJSON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		770EC5BC1AC6C4E2005F1FFB /* SampleTableViewJSON.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTableViewJSON.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		77BBEB071C9F567400EC2455 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		77BBEB091C9F567400EC2455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		77BBEB0B1C9F567400EC2455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		77BBEB0C1C9F567400EC2455 /* ContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
-		77BBEB0D1C9F567400EC2455 /* ContentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItemViewController.swift; sourceTree = "<group>"; };
-		77BBEB0E1C9F567400EC2455 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
-		77BBEB0F1C9F567400EC2455 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		77BBEB101C9F567400EC2455 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		77BBEB111C9F567400EC2455 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		777A86721CAA310A0084663E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		777A86741CAA310A0084663E /* ContentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItemViewController.swift; sourceTree = "<group>"; };
+		777A86751CAA310A0084663E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		777A86761CAA310A0084663E /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		777A86781CAA310A0084663E /* ContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
+		777A867A1CAA310A0084663E /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		777A867C1CAA310A0084663E /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		777A867F1CAA310A0084663E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		777A86811CAA310A0084663E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		777A86821CAA310A0084663E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		777A86831CAA310A0084663E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77BBEB271C9F574C00EC2455 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77BBEB281C9F574C00EC2455 /* SampleTableViewJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTableViewJSONTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,18 +84,60 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		777A86731CAA310A0084663E /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				777A86741CAA310A0084663E /* ContentItemViewController.swift */,
+				777A86751CAA310A0084663E /* FeedTableViewCell.swift */,
+				777A86761CAA310A0084663E /* FeedViewController.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		777A86771CAA310A0084663E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				777A86781CAA310A0084663E /* ContentItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		777A86791CAA310A0084663E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				777A867A1CAA310A0084663E /* DataProvider.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		777A867B1CAA310A0084663E /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				777A867C1CAA310A0084663E /* JSONParser.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		777A867D1CAA310A0084663E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				777A867E1CAA310A0084663E /* LaunchScreen.xib */,
+				777A86801CAA310A0084663E /* Main.storyboard */,
+				777A86821CAA310A0084663E /* Images.xcassets */,
+				777A86831CAA310A0084663E /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		77BBEB061C9F567400EC2455 /* SampleTableViewJSON */ = {
 			isa = PBXGroup;
 			children = (
-				77BBEB071C9F567400EC2455 /* AppDelegate.swift */,
-				77BBEB081C9F567400EC2455 /* LaunchScreen.xib */,
-				77BBEB0A1C9F567400EC2455 /* Main.storyboard */,
-				77BBEB0C1C9F567400EC2455 /* ContentItem.swift */,
-				77BBEB0D1C9F567400EC2455 /* ContentItemViewController.swift */,
-				77BBEB0E1C9F567400EC2455 /* FeedTableViewCell.swift */,
-				77BBEB0F1C9F567400EC2455 /* FeedViewController.swift */,
-				77BBEB101C9F567400EC2455 /* Images.xcassets */,
-				77BBEB111C9F567400EC2455 /* Info.plist */,
+				777A86721CAA310A0084663E /* AppDelegate.swift */,
+				777A86731CAA310A0084663E /* Content */,
+				777A86771CAA310A0084663E /* Model */,
+				777A86791CAA310A0084663E /* Network */,
+				777A867B1CAA310A0084663E /* Parser */,
+				777A867D1CAA310A0084663E /* Supporting Files */,
 			);
 			path = SampleTableViewJSON;
 			sourceTree = "<group>";
@@ -151,7 +197,7 @@
 			attributes = {
 				CLASSPREFIX = OP;
 				LastSwiftMigration = 0710;
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Olga Pudrovska";
 				TargetAttributes = {
@@ -188,9 +234,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77BBEB1C1C9F567400EC2455 /* Images.xcassets in Resources */,
-				77BBEB161C9F567400EC2455 /* LaunchScreen.xib in Resources */,
-				77BBEB171C9F567400EC2455 /* Main.storyboard in Resources */,
+				777A868D1CAA310A0084663E /* Images.xcassets in Resources */,
+				777A868B1CAA310A0084663E /* LaunchScreen.xib in Resources */,
+				777A868C1CAA310A0084663E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,11 +254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77BBEB181C9F567400EC2455 /* ContentItem.swift in Sources */,
-				77BBEB1A1C9F567400EC2455 /* FeedTableViewCell.swift in Sources */,
-				77BBEB1B1C9F567400EC2455 /* FeedViewController.swift in Sources */,
-				77BBEB151C9F567400EC2455 /* AppDelegate.swift in Sources */,
-				77BBEB191C9F567400EC2455 /* ContentItemViewController.swift in Sources */,
+				777A86891CAA310A0084663E /* DataProvider.swift in Sources */,
+				777A86841CAA310A0084663E /* AppDelegate.swift in Sources */,
+				777A868A1CAA310A0084663E /* JSONParser.swift in Sources */,
+				777A86861CAA310A0084663E /* FeedTableViewCell.swift in Sources */,
+				777A86881CAA310A0084663E /* ContentItem.swift in Sources */,
+				777A86871CAA310A0084663E /* FeedViewController.swift in Sources */,
+				777A86851CAA310A0084663E /* ContentItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,18 +283,18 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		77BBEB081C9F567400EC2455 /* LaunchScreen.xib */ = {
+		777A867E1CAA310A0084663E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				77BBEB091C9F567400EC2455 /* Base */,
+				777A867F1CAA310A0084663E /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
-		77BBEB0A1C9F567400EC2455 /* Main.storyboard */ = {
+		777A86801CAA310A0084663E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				77BBEB0B1C9F567400EC2455 /* Base */,
+				777A86811CAA310A0084663E /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -338,11 +386,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SampleTableViewJSON/Info.plist;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "SampleTableViewJSON/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.olgapudrovska.TestApp;
 				PRODUCT_NAME = SampleTableViewJSON;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -350,7 +400,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SampleTableViewJSON/Info.plist;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = "SampleTableViewJSON/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.olgapudrovska.TestApp;
 				PRODUCT_NAME = SampleTableViewJSON;
