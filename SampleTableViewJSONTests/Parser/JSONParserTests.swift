@@ -35,11 +35,11 @@ class JSONParserTests: XCTestCase {
         XCTAssertEqual(6, results!.count)
         
         let first = results!.first!
-        XCTAssertEqual("Historic win by Google DeepMind's Go-playing program has South Korean government playing catch-up on artificial intelligence.", first.blurb)
-        XCTAssertEqual("http://www.nature.com/news/south-korea-trumpets-860-million-ai-fund-after-alphago-shock-1.19595", first.url)
-        XCTAssertEqual("South Korea trumpets $860-million AI fund after AlphaGo 'shock'", first.title)
-        XCTAssertEqual(1458284400, first.datePublished)
-        XCTAssertEqual("http://olgapudrovska.com/images/korea_alpha_go.jpg", first.urlImage)
+        XCTAssertEqual(first.blurb, "Historic win by Google DeepMind's Go-playing program has South Korean government playing catch-up on artificial intelligence.")
+        XCTAssertEqual(first.url, "http://www.nature.com/news/south-korea-trumpets-860-million-ai-fund-after-alphago-shock-1.19595")
+        XCTAssertEqual(first.title, "South Korea trumpets $860-million AI fund after AlphaGo 'shock'")
+        XCTAssertEqual(first.datePublished, 1458284400)
+        XCTAssertEqual(first.urlImage, "http://olgapudrovska.com/images/korea_alpha_go.jpg")
     }
     
     func test_contentItemsFromResponse_with_nil_data() {
