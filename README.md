@@ -14,14 +14,13 @@ This app demonstrates how to
 * search(filter) posts in a table view by letter combination in title or description.
 * open a complete post in a UIWebView when a table view cell is tapped.
 * make UI adjust to all screen sizes with the help of auto layout constraints.
+* create unit tests for parsing JSON.
 * use best practices and style guides to create easily readable and well-documented code.
 
 ## To Do
 
 * add lazy (progressive or on demand) loading of preview images.
 * add third-party libraries to demonstrate usage of CocoaPods.
-* move JSON parsing to a separate class with data validation.
-* add tests (particularly for JSON parsing and data validation).
 
 ## History
 
