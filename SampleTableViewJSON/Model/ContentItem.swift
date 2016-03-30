@@ -39,8 +39,4 @@ struct ContentItem {
             self.image = UIImage(data: imageData)
         }
     }
-
-    //private func setAuxilliaryProperties() {
-
-    //}
 }
