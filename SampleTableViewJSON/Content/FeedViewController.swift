@@ -56,7 +56,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         // Load JSON
 
-        loadData()
+        self.activityIndicator.startAnimating()
+        self.tableView.hidden = true
+
+        self.refresh()
 
         // Create navigation bar buttons
         createNavBarItems()
@@ -148,7 +151,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             sortType = .Date
         }
 
-        let actionSheet = UIActionSheet(title: "Sort content by", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Title", "Date Posted")
+        let actionSheet = UIActionSheet(title: "Sort content by", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Title", "Date Published")
 
         actionSheet.showInView(self.view)
     }
@@ -169,38 +172,21 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - Private methods
 
-    private func loadData() {
-        let url = NSURL(string: "http://olgapudrovska.com:8091/sampledata/posts")!
-        let request = NSURLRequest(URL: url)
-        let urlSession = NSURLSession.sharedSession()
-        let task = urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+    func refresh() {
+        let provider = DataProvider()
+        let parser = JSONParser()
 
-            if let error = error {
-                print(error)
-                return
+        provider.loadData { [unowned self] data in
+            if let content = parser.contentItemsFromResponse(data) {
+                self.contentArray = content
             }
 
-            // If data is loaded successfully, parse it
-            do {
-                // Parse data
-                if let tempContent = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? [NSDictionary] {
-                    for item in tempContent {
-                        self.contentArray.append(ContentItem(json: item as NSDictionary))
-                    }
-
-                    // Sort tableView initially
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.activityIndicator.stopAnimating()
-                        self.tableView.hidden = false
-                        self.sortTableView()
-                    }
-                }
-            } catch {
-                print(error)
+            dispatch_async(dispatch_get_main_queue()) {
+                self.activityIndicator.stopAnimating()
+                self.tableView.hidden = false
+                self.sortTableView()
             }
-        })
-
-        task.resume()
+        }
     }
 
     private func createNavBarItems() {
@@ -211,14 +197,14 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let segmentedControl = UISegmentedControl(items: items)
         // do not sort initially
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: "didPressSortOrder:", forControlEvents: UIControlEvents.ValueChanged)
+        segmentedControl.addTarget(self, action: #selector(FeedViewController.didPressSortOrder(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         // create items
         // asc/desc
         let directionItem: UIBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 
         // sort
-        let sortItem: UIBarButtonItem = UIBarButtonItem(title: "Sort", style: UIBarButtonItemStyle.Plain, target: self, action: "didPressSortType:")
+        let sortItem: UIBarButtonItem = UIBarButtonItem(title: "Sort", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
 
         // add items to bar
         self.navigationItem.setLeftBarButtonItem(directionItem, animated: false)
@@ -272,8 +258,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func filterContentForSearchText(searchText: String) {
         // Filter the array using the filter method
         contentFilteredArray = contentArray.filter({( contentItem: ContentItem) -> Bool in
-            let titleMatch = contentItem.title?.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-            let blurbMatch = contentItem.blurb?.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            let titleMatch = contentItem.title.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            let blurbMatch = contentItem.blurb.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
 
             return titleMatch != nil || blurbMatch != nil
         })
