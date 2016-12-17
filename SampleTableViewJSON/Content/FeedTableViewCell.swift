@@ -13,11 +13,11 @@ let FeedTableViewCellIdentifier = "Cell"
 class FeedTableViewCell: UITableViewCell {
     // MARK: - Outlets
 
-    @IBOutlet weak var contentImage: UIImageView!
+    @IBOutlet var contentImage: UIImageView?
 
-    @IBOutlet weak var contentTitleLabel: UILabel!
+    @IBOutlet var contentTitleLabel: UILabel?
 
-    @IBOutlet weak var contentBlurbLabel: UILabel!
+    @IBOutlet var contentBlurbLabel: UILabel?
 
-    @IBOutlet weak var contentDateLabel: UILabel!
+    @IBOutlet var contentDateLabel: UILabel?
 }

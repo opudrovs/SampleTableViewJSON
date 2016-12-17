@@ -43,14 +43,14 @@ class JSONParserTests: XCTestCase {
     }
     
     func test_contentItemsFromResponse_with_nil_data() {
-        let data: NSData? = nil
+        let data: Data? = nil
         let results = parser.contentItemsFromResponse(data)
         XCTAssertNil(results)
     }
     
-    func loadJSONTestData(filename: String) -> NSData? {
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let path = bundle.pathForResource(filename, ofType: "json")
-        return NSData(contentsOfFile: path!)
+    func loadJSONTestData(_ filename: String) -> Data? {
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: filename, ofType: "json")
+        return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
     }
 }

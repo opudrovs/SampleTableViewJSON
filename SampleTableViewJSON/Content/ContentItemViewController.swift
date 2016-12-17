@@ -28,11 +28,11 @@ class ContentItemViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let urlString = urlString, url = NSURL(string: urlString) {
-            let request = NSURLRequest(URL: url)
+        if let urlString = urlString, let url = URL(string: urlString) {
+            let request = URLRequest(url: url)
             webView.loadRequest(request)
         }
     }
