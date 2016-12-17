@@ -28,15 +28,7 @@ class ContentItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let userContentController = WKUserContentController()
-//        userContentController.addUserScript(deviceScript)
-//        userContentController.addUserScript(userScript)
-//        userContentController.add(handler, name: "heightObserver")
-
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = userContentController
-
-        self.webView = WKWebView(frame: CGRect.zero, configuration: configuration)
+        self.webView = WKWebView(frame: CGRect.zero, configuration: WKWebViewConfiguration())
 
         let webView = self.webView!
         self.view.addSubview(webView)
@@ -57,6 +49,6 @@ class ContentItemViewController: UIViewController {
         guard let urlString = urlString, let url = URL(string: urlString) else { return }
 
         let request = URLRequest(url: url)
-        webView?.load(request)
+        _ = self.webView?.load(request)
     }
 }
