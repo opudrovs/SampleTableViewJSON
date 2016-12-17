@@ -49,6 +49,6 @@ class ContentItemViewController: UIViewController {
         guard let urlString = urlString, let url = URL(string: urlString) else { return }
 
         let request = URLRequest(url: url)
-        webView?.load(request)
+        self.webView?.load(request)
     }
 }
