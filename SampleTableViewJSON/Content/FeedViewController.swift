@@ -24,8 +24,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - Outlets
 
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView?
+    @IBOutlet var tableView: UITableView?
 
     // MARK: - Private properties
 
@@ -56,8 +56,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         // Load JSON
 
-        self.activityIndicator.startAnimating()
-        self.tableView.isHidden = true
+        self.activityIndicator?.startAnimating()
+        self.tableView?.isHidden = true
 
         self.refresh()
 
@@ -79,7 +79,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green:
         127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
-        tableView.tableHeaderView = searchController.searchBar
+        tableView?.tableHeaderView = searchController.searchBar
     }
 
     // MARK: - UITableViewDataSource
@@ -93,19 +93,16 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = self.tableView.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell {
+    guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
-            let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
+        let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
 
-            cell.contentTitleLabel?.text = content.title
-            cell.contentBlurbLabel?.text = content.blurb
-            cell.contentDateLabel?.text = content.dateFormatted
-            cell.contentImage?.image = content.image
+        cell.contentTitleLabel?.text = content.title
+        cell.contentBlurbLabel?.text = content.blurb
+        cell.contentDateLabel?.text = content.dateFormatted
+        cell.contentImage?.image = content.image
 
-            return cell
-        }
-
-        return UITableViewCell()
+        return cell
     }
 
     // MARK: - UITableViewDelegate
@@ -160,13 +157,12 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ContentItemVCShowSegueIdentifier {
-            if let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView.indexPathForSelectedRow {
+            guard let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView?.indexPathForSelectedRow else { return }
 
-                let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
+            let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
 
-                vc.title = content.title
-                vc.urlString = content.url
-            }
+            vc.title = content.title
+            vc.urlString = content.url
         }
     }
 
@@ -182,8 +178,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
 
             DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.tableView.isHidden = false
+                self.activityIndicator?.stopAnimating()
+                self.tableView?.isHidden = false
                 self.sortTableView()
             }
         }
@@ -240,7 +236,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             break
         }
 
-        tableView.reloadData()
+        tableView?.reloadData()
     }
 
     // MARK: - UISearchResultsUpdating
@@ -249,7 +245,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let searchText = searchController.searchBar.text {
             filterContentForSearchText(searchText)
 
-            tableView.reloadData()
+            tableView?.reloadData()
         }
     }
 
