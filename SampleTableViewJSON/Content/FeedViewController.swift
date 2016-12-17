@@ -97,10 +97,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
             let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
 
-            cell.contentTitleLabel.text = content.title
-            cell.contentBlurbLabel.text = content.blurb
-            cell.contentDateLabel.text = content.dateFormatted
-            cell.contentImage.image = content.image
+            cell.contentTitleLabel?.text = content.title
+            cell.contentBlurbLabel?.text = content.blurb
+            cell.contentDateLabel?.text = content.dateFormatted
+            cell.contentImage?.image = content.image
 
             return cell
         }
