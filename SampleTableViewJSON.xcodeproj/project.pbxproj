@@ -40,9 +40,9 @@
 		773713E61CAB6AAD00441321 /* invalid-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "invalid-response.json"; sourceTree = "<group>"; };
 		773713E71CAB6AAD00441321 /* valid-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "valid-response.json"; sourceTree = "<group>"; };
 		777A86721CAA310A0084663E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		777A86741CAA310A0084663E /* ContentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItemViewController.swift; sourceTree = "<group>"; };
-		777A86751CAA310A0084663E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
-		777A86761CAA310A0084663E /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		777A86741CAA310A0084663E /* ContentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentItemViewController.swift; path = Content/ContentItemViewController.swift; sourceTree = "<group>"; };
+		777A86751CAA310A0084663E /* FeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedTableViewCell.swift; path = Content/FeedTableViewCell.swift; sourceTree = "<group>"; };
+		777A86761CAA310A0084663E /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = Content/FeedViewController.swift; sourceTree = "<group>"; };
 		777A86781CAA310A0084663E /* ContentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItem.swift; sourceTree = "<group>"; };
 		777A867A1CAA310A0084663E /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		777A867C1CAA310A0084663E /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
@@ -116,14 +116,21 @@
 			path = SampleTableViewJSONTests/Data;
 			sourceTree = SOURCE_ROOT;
 		};
-		777A86731CAA310A0084663E /* Content */ = {
+		775D54901E05F1840077E71F /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				777A86741CAA310A0084663E /* ContentItemViewController.swift */,
-				777A86751CAA310A0084663E /* FeedTableViewCell.swift */,
 				777A86761CAA310A0084663E /* FeedViewController.swift */,
 			);
-			path = Content;
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		775D54911E05F19B0077E71F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				777A86751CAA310A0084663E /* FeedTableViewCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		777A86771CAA310A0084663E /* Model */ = {
@@ -165,7 +172,8 @@
 			isa = PBXGroup;
 			children = (
 				777A86721CAA310A0084663E /* AppDelegate.swift */,
-				777A86731CAA310A0084663E /* Content */,
+				775D54901E05F1840077E71F /* View Controller */,
+				775D54911E05F19B0077E71F /* View */,
 				777A86771CAA310A0084663E /* Model */,
 				777A86791CAA310A0084663E /* Network */,
 				777A867B1CAA310A0084663E /* Parser */,
