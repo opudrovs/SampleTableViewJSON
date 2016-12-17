@@ -12,9 +12,9 @@ typealias JSONArray = [AnyObject]
 typealias JSONDictionary = [String: AnyObject]
 
 class JSONParser {
-    func parseDictionary(data: NSData?) -> JSONDictionary? {
+    func parseDictionary(_ data: Data?) -> JSONDictionary? {
         do {
-            if let data = data, json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? JSONDictionary {
+            if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary {
                 return json
             }
         } catch {
@@ -23,9 +23,9 @@ class JSONParser {
         return nil
     }
 
-    func parseArray(data: NSData?) -> JSONArray? {
+    func parseArray(_ data: Data?) -> JSONArray? {
         do {
-            if let data = data, json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? JSONArray {
+            if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONArray {
                 return json
             }
         } catch {
@@ -34,7 +34,7 @@ class JSONParser {
         return nil
     }
     
-    func contentItemsFromResponse(data: NSData?) -> [ContentItem]? {
+    func contentItemsFromResponse(_ data: Data?) -> [ContentItem]? {
         guard let arr = parseArray(data) else {
             print("Error: couldn't parse array from data")
             return nil
@@ -48,12 +48,12 @@ class JSONParser {
         return contentItems.flatMap { parseContentItem($0) }
     }
     
-    func parseContentItem(dict: JSONDictionary) -> ContentItem? {
+    func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
         if let  blurb = dict["blurb"] as? String,
-                url = dict["url"] as? String,
-                title = dict["title"] as? String,
-                datePublished = dict["datePublished"] as? Int,
-                urlImage = dict["urlImage"] as? String {
+                let url = dict["url"] as? String,
+                let title = dict["title"] as? String,
+                let datePublished = dict["datePublished"] as? Int,
+                let urlImage = dict["urlImage"] as? String {
 
                 let item = ContentItem(blurb: blurb, url: url, title: title, datePublished: datePublished, urlImage: urlImage)
 
