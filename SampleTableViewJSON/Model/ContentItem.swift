@@ -27,15 +27,15 @@ struct ContentItem {
         self.urlImage = urlImage
 
         // Convert milliseconds since 1970 to a human-readable date string
-        let timeInterval = NSTimeInterval(datePublished)
-        let date = NSDate(timeIntervalSince1970: timeInterval)
+        let timeInterval = TimeInterval(datePublished)
+        let date = Date(timeIntervalSince1970: timeInterval)
 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
 
-        self.dateFormatted = dateFormatter.stringFromDate(date)
+        self.dateFormatted = dateFormatter.string(from: date)
 
-        if let imageURL = NSURL(string: urlImage), imageData = NSData(contentsOfURL: imageURL) {
+        if let imageURL = URL(string: urlImage), let imageData = try? Data(contentsOf: imageURL) {
             self.image = UIImage(data: imageData)
         }
     }

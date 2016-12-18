@@ -9,18 +9,18 @@
 import Foundation
 
 class DataProvider {
-    func loadData(completion: (NSData?) -> Void) {
+    func loadData(_ completion: @escaping (Data?) -> Void) {
         let urlString = "http://olgapudrovska.com:8091/sampledata/posts"
 
-        guard let url = NSURL(string: urlString) else {
+        guard let url = URL(string: urlString) else {
             print("Error: couldn't create URL from string")
             completion(nil)
             return
         }
 
-        let request = NSURLRequest(URL: url)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+        let request = URLRequest(url: url)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
             if let error = error {
                 print("Error loading data: \(error)")
                 completion(data)
@@ -28,7 +28,7 @@ class DataProvider {
             }
             
             completion(data)
-        }
+        }) 
         
         task.resume()
     }

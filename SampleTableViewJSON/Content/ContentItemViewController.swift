@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import WebKit
 
 class ContentItemViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet var webView: WKWebView?
 
     // MARK: - Properties
     var urlString: String?
@@ -26,14 +27,28 @@ class ContentItemViewController: UIViewController {
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.webView = WKWebView(frame: CGRect.zero, configuration: WKWebViewConfiguration())
+
+        let webView = self.webView!
+        self.view.addSubview(webView)
+
+        webView.translatesAutoresizingMaskIntoConstraints = false
+
+        let topConstraint = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
+        let leadingConstraint = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
+        let trailingConstraint = NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+
+        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let urlString = urlString, url = NSURL(string: urlString) {
-            let request = NSURLRequest(URL: url)
-            webView.loadRequest(request)
-        }
+        guard let urlString = urlString, let url = URL(string: urlString) else { return }
+
+        let request = URLRequest(url: url)
+        _ = self.webView?.load(request)
     }
 }
