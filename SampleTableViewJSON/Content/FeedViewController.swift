@@ -20,7 +20,7 @@ enum SortType: Int {
     case date = 1
 }
 
-class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UIActionSheetDelegate {
+class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
 
     // MARK: - Outlets
 
@@ -46,7 +46,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.init(coder: aDecoder)
     }
 
-    // MARK: - View life cycle
+    // MARK: - Viewlife cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,18 +65,18 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         createNavBarItems()
 
         // Create search controller
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
 
         if #available(iOS 9.1, *) {
-            searchController.obscuresBackgroundDuringPresentation = false
+            self.searchController.obscuresBackgroundDuringPresentation = false
         } else {
-            searchController.dimsBackgroundDuringPresentation = false
+            self.searchController.dimsBackgroundDuringPresentation = false
         }
         definesPresentationContext = true
-        searchController.searchBar.placeholder = "Search content..."
-        searchController.searchBar.tintColor = UIColor.white
-        searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green:
+        self.searchController.searchBar.placeholder = "Search content..."
+        self.searchController.searchBar.tintColor = UIColor.white
+        self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green:
         127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
         tableView?.tableHeaderView = searchController.searchBar
@@ -85,7 +85,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive && searchController.searchBar.text != "" {
+        if self.searchController.isActive && self.searchController.searchBar.text != "" {
             return self.contentFilteredArray.count
         } else {
             return self.contentArray.count
@@ -95,7 +95,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
-        let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
+        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? self.contentFilteredArray[indexPath.row] : self.contentArray[indexPath.row]
 
         cell.contentTitleLabel?.text = content.title
         cell.contentBlurbLabel?.text = content.blurb
@@ -117,40 +117,43 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: false)
     }
 
-    // MARK: - UIActionSheetDelegate
-
-    func actionSheet(_ actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        if buttonIndex != 0 {
-            sortType = SortType(rawValue: buttonIndex - 1)!
-
-            // perform the actual sort
-            sortTableView()
-        }
-    }
-
     // MARK: - Event handlers
 
     func didPressSortOrder(_ sender: AnyObject) {
         if (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 {
-            sortOrder = .ascending
+            self.sortOrder = .ascending
         } else {
-            sortOrder = .descending
+            self.sortOrder = .descending
         }
 
-        // perform the actual sort
-        sortTableView()
+        self.sortTableView()
     }
 
     func didPressSortType(_ sender: AnyObject) {
         if (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 {
-            sortType = .title
+            self.sortType = .title
         } else {
-            sortType = .date
+            self.sortType = .date
         }
 
-        let actionSheet = UIActionSheet(title: "Sort content by", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Title", "Date Published")
+        let alertController = UIAlertController(title: "Sort content by", message: nil, preferredStyle: .actionSheet)
 
-        actionSheet.show(in: self.view)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let sortByTitleAction = UIAlertAction(title: "Title", style: .default) { action in
+            self.sortType = .title
+            self.sortTableView()
+        }
+        alertController.addAction(sortByTitleAction)
+
+        let sortByDateAction = UIAlertAction(title: "Date Published", style: .default) { action in
+            self.sortType = .date
+            self.sortTableView()
+        }
+        alertController.addAction(sortByDateAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 
     // MARK: - Navigation
