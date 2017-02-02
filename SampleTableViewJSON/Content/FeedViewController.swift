@@ -27,7 +27,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
     @IBOutlet var tableView: UITableView?
 
-    // MARK: - Private properties
+    // MARK: - Private Properties
 
     fileprivate var contentArray: [ContentItem]
     fileprivate var contentFilteredArray: [ContentItem]
@@ -46,7 +46,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.init(coder: aDecoder)
     }
 
-    // MARK: - Viewlife cycle
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +54,15 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Set view title
         self.title = "Posts"
 
-        // Load JSON
-
+        // Show that data is loading
         self.activityIndicator?.startAnimating()
         self.tableView?.isHidden = true
 
+        // Load JSON
         self.refresh()
 
         // Create navigation bar buttons
-        createNavBarItems()
+        self.createNavBarItems()
 
         // Create search controller
         self.searchController = UISearchController(searchResultsController: nil)
@@ -73,7 +73,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             self.searchController.dimsBackgroundDuringPresentation = false
         }
-        definesPresentationContext = true
+        self.definesPresentationContext = true
         self.searchController.searchBar.placeholder = "Search content..."
         self.searchController.searchBar.tintColor = UIColor.white
         self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green:
@@ -117,24 +117,16 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: false)
     }
 
-    // MARK: - Event handlers
+    // MARK: - Event Handlers
 
     func didPressSortOrder(_ sender: AnyObject) {
-        if (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 {
-            self.sortOrder = .ascending
-        } else {
-            self.sortOrder = .descending
-        }
+        self.sortOrder = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .ascending : .descending
 
         self.sortTableView()
     }
 
     func didPressSortType(_ sender: AnyObject) {
-        if (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 {
-            self.sortType = .title
-        } else {
-            self.sortType = .date
-        }
+        self.sortType = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .title : .date
 
         let alertController = UIAlertController(title: "Sort content by", message: nil, preferredStyle: .actionSheet)
 
@@ -169,7 +161,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
-    // MARK: - Private methods
+    // MARK: - Private Methods
 
     func refresh() {
         let provider = DataProvider()
@@ -189,7 +181,6 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     fileprivate func createNavBarItems() {
-
         let items: Array = ["Asc", "Desc"]
 
         // create segmented control
@@ -211,52 +202,42 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     fileprivate func sortTableView() {
-        // sort based on sort direction and type
-
-        switch sortType {
+        // sort content based on sort direction and type
+        switch self.sortType {
         case .title:
-            if sortOrder == .ascending {
-                contentArray.sort {
-                    $0.title < $1.title
-                }
+            if self.sortOrder == .ascending {
+                self.contentArray.sort { $0.title < $1.title }
             } else {
-                contentArray.sort {
-                    $0.title > $1.title
-                }
+                self.contentArray.sort { $0.title > $1.title }
             }
             break
 
         case .date:
-            if sortOrder == .descending {
-                contentArray.sort {
-                    $0.datePublished > $1.datePublished
-                }
+            if self.sortOrder == .descending {
+                self.contentArray.sort { $0.datePublished > $1.datePublished }
             } else {
-                contentArray.sort {
-                    $0.datePublished < $1.datePublished
-                }
+                self.contentArray.sort { $0.datePublished < $1.datePublished }
             }
             break
         }
 
-        tableView?.reloadData()
+        self.tableView?.reloadData()
     }
 
     // MARK: - UISearchResultsUpdating
 
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
-            filterContentForSearchText(searchText)
+            self.filterContentForSearchText(searchText)
 
-            tableView?.reloadData()
+            self.tableView?.reloadData()
         }
     }
 
     // MARK: - Search
 
     fileprivate func filterContentForSearchText(_ searchText: String) {
-        // Filter the array using the filter method
-        contentFilteredArray = contentArray.filter({( contentItem: ContentItem) -> Bool in
+        self.contentFilteredArray = self.contentArray.filter({( contentItem: ContentItem) -> Bool in
             let titleMatch = contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
             let blurbMatch = contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
 

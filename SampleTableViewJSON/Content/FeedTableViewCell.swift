@@ -14,10 +14,7 @@ class FeedTableViewCell: UITableViewCell {
     // MARK: - Outlets
 
     @IBOutlet var contentImage: UIImageView?
-
     @IBOutlet var contentTitleLabel: UILabel?
-
     @IBOutlet var contentBlurbLabel: UILabel?
-
     @IBOutlet var contentDateLabel: UILabel?
 }

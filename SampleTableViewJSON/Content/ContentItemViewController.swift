@@ -24,7 +24,7 @@ class ContentItemViewController: UIViewController {
         super.init(coder: aDecoder)
     }
 
-    // MARK: - View life cycle
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
