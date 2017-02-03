@@ -123,7 +123,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func didPressSortType(_ sender: AnyObject) {
         self.sortType = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .title : .date
 
-        let alertController = UIAlertController(title: "Sort content by", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Sort Content by", message: nil, preferredStyle: .actionSheet)
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
