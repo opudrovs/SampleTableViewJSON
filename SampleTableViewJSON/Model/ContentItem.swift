@@ -15,7 +15,6 @@ struct ContentItem {
     var title: String
     var datePublished: Int
     var urlImage: String
-    // auxiliary
     var dateFormatted: String
     var image: UIImage?
 
