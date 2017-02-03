@@ -12,12 +12,12 @@ let ContentItemVCShowSegueIdentifier = "ShowContentItem"
 
 enum SortOrder: Int {
     case ascending = 0
-    case descending = 1
+    case descending
 }
 
 enum SortType: Int {
     case title = 0
-    case date = 1
+    case date
 }
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
@@ -76,8 +76,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.definesPresentationContext = true
         self.searchController.searchBar.placeholder = "Search content..."
         self.searchController.searchBar.tintColor = UIColor.white
-        self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green:
-        127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+        self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
         tableView?.tableHeaderView = searchController.searchBar
     }
