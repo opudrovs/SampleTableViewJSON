@@ -8,7 +8,7 @@
 
 import UIKit
 
-let FeedTableViewCellIdentifier = "Cell"
+let FeedTableViewCellIdentifier = "FeedTableViewCell"
 
 class FeedTableViewCell: UITableViewCell {
     

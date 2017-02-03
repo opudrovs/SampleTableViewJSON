@@ -21,6 +21,7 @@ enum SortType: Int {
 }
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+    static let tableViewRowHeight = CGFloat(120)
 
     // MARK: - Outlets
 
@@ -52,7 +53,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
 
         // Set view title
-        self.title = FeedLocalizationKey.posts.localizedString
+        self.title = FeedLocalizationKey.posts.localizedString()
 
         // Show that data is loading
         self.activityIndicator?.startAnimating()
@@ -65,20 +66,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.createNavBarItems()
 
         // Create search controller
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.searchResultsUpdater = self
-
-        if #available(iOS 9.1, *) {
-            self.searchController.obscuresBackgroundDuringPresentation = false
-        } else {
-            self.searchController.dimsBackgroundDuringPresentation = false
-        }
         self.definesPresentationContext = true
-        self.searchController.searchBar.placeholder = FeedLocalizationKey.searchPlaceholder.localizedString
-        self.searchController.searchBar.tintColor = UIColor.white
-        self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
-        tableView?.tableHeaderView = searchController.searchBar
+        self.searchController = self.createSearchController()
+        self.tableView?.tableHeaderView = self.searchController.searchBar
     }
 
     // MARK: - UITableViewDataSource
@@ -103,7 +94,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return FeedViewController.tableViewRowHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -123,23 +114,12 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func didPressSortType(_ sender: AnyObject) {
         self.sortType = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .title : .date
 
-        let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString, message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString(), message: nil, preferredStyle: .actionSheet)
 
-        let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString, style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-
-        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString, style: .default) { action in
-            self.sortType = .title
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        for action in self.sortActions() {
+            alertController.addAction(action)
         }
-        alertController.addAction(sortByTitleAction)
 
-        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString, style: .default) { action in
-            self.sortType = .date
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
-        }
-        alertController.addAction(sortByDateAction)
-        
         self.present(alertController, animated: true, completion: nil)
     }
 
@@ -194,7 +174,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     fileprivate func createNavBarItems() {
-        let items: Array = [FeedLocalizationKey.sortOrderAscending.localizedString, FeedLocalizationKey.sortOrderDescending.localizedString]
+        let items: Array = [FeedLocalizationKey.sortOrderAscending.localizedString(), FeedLocalizationKey.sortOrderDescending.localizedString()]
 
         // create segmented control
         let segmentedControl = UISegmentedControl(items: items)
@@ -207,11 +187,42 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let directionItem: UIBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 
         // sort
-        let sortItem: UIBarButtonItem = UIBarButtonItem(title: FeedLocalizationKey.sort.localizedString, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
+        let sortItem: UIBarButtonItem = UIBarButtonItem(title: FeedLocalizationKey.sort.localizedString(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
 
         // add items to bar
         self.navigationItem.setLeftBarButton(directionItem, animated: false)
         self.navigationItem.setRightBarButton(sortItem, animated: false)
+    }
+
+    fileprivate func createSearchController() -> UISearchController {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+
+        if #available(iOS 9.1, *) {
+            searchController.obscuresBackgroundDuringPresentation = false
+        } else {
+            searchController.dimsBackgroundDuringPresentation = false
+        }
+        searchController.searchBar.placeholder = FeedLocalizationKey.searchPlaceholder.localizedString()
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+        return searchController
+    }
+
+    fileprivate func sortActions() -> [UIAlertAction] {
+        let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
+
+        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString(), style: .default) { action in
+            self.sortType = .title
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        }
+
+        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString(), style: .default) { action in
+            self.sortType = .date
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        }
+
+        return [cancelAction, sortByTitleAction, sortByDateAction]
     }
 
     // Sorts content based on sort type and direction and reloads data
