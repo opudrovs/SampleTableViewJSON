@@ -11,6 +11,14 @@ import Foundation
 typealias JSONArray = [AnyObject]
 typealias JSONDictionary = [String: AnyObject]
 
+struct ContentKey {
+    static let blurb = "blurb"
+    static let url = "url"
+    static let title = "title"
+    static let datePublished = "datePublished"
+    static let urlImage = "urlImage"
+}
+
 class JSONParser {
     func parseDictionary(_ data: Data?) -> JSONDictionary? {
         do {
@@ -35,13 +43,13 @@ class JSONParser {
     }
     
     func contentItemsFromResponse(_ data: Data?) -> [ContentItem]? {
-        guard let arr = parseArray(data) else {
+        guard let parsedArray = parseArray(data) else {
             print("Error: couldn't parse array from data")
             return nil
         }
         
-        guard let contentItems = arr as? [JSONDictionary] else {
-            print("Error: couldn't parse items from JSON: \(arr)")
+        guard let contentItems = parsedArray as? [JSONDictionary] else {
+            print("Error: couldn't parse items from JSON: \(parsedArray)")
             return nil
         }
         
@@ -49,7 +57,7 @@ class JSONParser {
     }
     
     func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
-        guard let blurb = dict["blurb"] as? String, let url = dict["url"] as? String, let title = dict["title"] as? String, let datePublished = dict["datePublished"] as? Int, let urlImage = dict["urlImage"] as? String else {
+        guard let blurb = dict[ContentKey.blurb] as? String, let url = dict[ContentKey.url] as? String, let title = dict[ContentKey.title] as? String, let datePublished = dict[ContentKey.datePublished] as? Int, let urlImage = dict[ContentKey.urlImage] as? String else {
             print("Error: couldn't parse JSON dictionary: \(dict)")
             return nil
         }

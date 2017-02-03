@@ -156,9 +156,27 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
-    // MARK: - Private Methods
+    // MARK: - UISearchResultsUpdating
 
-    func refresh() {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            self.filterContentForSearchText(searchText)
+
+            self.tableView?.reloadData()
+        }
+    }
+
+    // MARK: - Search
+
+    fileprivate func filterContentForSearchText(_ searchText: String) {
+        self.contentFilteredArray = self.contentArray.filter({( contentItem: ContentItem) -> Bool in
+            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
+        })
+    }
+
+    // MARK: - Private
+
+    fileprivate func refresh() {
         let provider = DataProvider()
         let parser = JSONParser()
 
@@ -215,25 +233,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             break
         }
-
+        
         self.tableView?.reloadData()
-    }
-
-    // MARK: - UISearchResultsUpdating
-
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text {
-            self.filterContentForSearchText(searchText)
-
-            self.tableView?.reloadData()
-        }
-    }
-
-    // MARK: - Search
-
-    fileprivate func filterContentForSearchText(_ searchText: String) {
-        self.contentFilteredArray = self.contentArray.filter({( contentItem: ContentItem) -> Bool in
-            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
-        })
     }
 }
