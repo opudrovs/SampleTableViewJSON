@@ -117,7 +117,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func didPressSortOrder(_ sender: AnyObject) {
         self.sortOrder = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .ascending : .descending
 
-        self.sortTableView()
+        self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
     }
 
     func didPressSortType(_ sender: AnyObject) {
@@ -130,13 +130,13 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         let sortByTitleAction = UIAlertAction(title: "Title", style: .default) { action in
             self.sortType = .title
-            self.sortTableView()
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
         alertController.addAction(sortByTitleAction)
 
         let sortByDateAction = UIAlertAction(title: "Date Published", style: .default) { action in
             self.sortType = .date
-            self.sortTableView()
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
         alertController.addAction(sortByDateAction)
         
@@ -170,7 +170,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             DispatchQueue.main.async {
                 self.activityIndicator?.stopAnimating()
                 self.tableView?.isHidden = false
-                self.sortTableView()
+                self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
             }
         }
     }
@@ -196,8 +196,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.navigationItem.setRightBarButton(sortItem, animated: false)
     }
 
-    fileprivate func sortTableView() {
-        // sort content based on sort direction and type
+    // Sorts content based on sort type and direction and reloads data
+    fileprivate func sortTableView(sortType: SortType, sortOrder: SortOrder) {
         switch self.sortType {
         case .title:
             if self.sortOrder == .ascending {
@@ -233,10 +233,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     fileprivate func filterContentForSearchText(_ searchText: String) {
         self.contentFilteredArray = self.contentArray.filter({( contentItem: ContentItem) -> Bool in
-            let titleMatch = contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-            let blurbMatch = contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-
-            return titleMatch != nil || blurbMatch != nil
+            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
         })
     }
 }
