@@ -17,11 +17,6 @@ This app demonstrates how to
 * create unit tests for parsing JSON.
 * use best practices and style guides to create easily readable and well-documented code.
 
-## To Do
-
-* add lazy (progressive or on demand) loading of preview images.
-* add third-party libraries to demonstrate usage of CocoaPods.
-
 ## Credits
 
 &copy; 2015-2017 Olga Pudrovska
