@@ -66,20 +66,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.createNavBarItems()
 
         // Create search controller
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.searchResultsUpdater = self
-
-        if #available(iOS 9.1, *) {
-            self.searchController.obscuresBackgroundDuringPresentation = false
-        } else {
-            self.searchController.dimsBackgroundDuringPresentation = false
-        }
         self.definesPresentationContext = true
-        self.searchController.searchBar.placeholder = FeedLocalizationKey.searchPlaceholder.localizedString()
-        self.searchController.searchBar.tintColor = UIColor.white
-        self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
-        tableView?.tableHeaderView = self.searchController.searchBar
+        self.searchController = self.createSearchController()
+        self.tableView?.tableHeaderView = self.searchController.searchBar
     }
 
     // MARK: - UITableViewDataSource
@@ -202,6 +192,21 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // add items to bar
         self.navigationItem.setLeftBarButton(directionItem, animated: false)
         self.navigationItem.setRightBarButton(sortItem, animated: false)
+    }
+
+    fileprivate func createSearchController() -> UISearchController {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+
+        if #available(iOS 9.1, *) {
+            searchController.obscuresBackgroundDuringPresentation = false
+        } else {
+            searchController.dimsBackgroundDuringPresentation = false
+        }
+        searchController.searchBar.placeholder = FeedLocalizationKey.searchPlaceholder.localizedString()
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+        return searchController
     }
 
     fileprivate func sortActions() -> [UIAlertAction] {
