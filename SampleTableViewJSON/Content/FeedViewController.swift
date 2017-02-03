@@ -169,9 +169,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Search
 
     fileprivate func filterContentForSearchText(_ searchText: String) {
-        self.contentFilteredArray = self.contentArray.filter({( contentItem: ContentItem) -> Bool in
+        self.contentFilteredArray = self.contentArray.filter { (contentItem: ContentItem) -> Bool in
             return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
-        })
+        }
     }
 
     // MARK: - Private
