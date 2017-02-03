@@ -1,0 +1,19 @@
+/* 
+  General.strings
+  SampleTableViewJSON
+
+  Created by Olga Pudrovska on 2/3/17.
+  Copyright © 2017 Olga Pudrovska. All rights reserved.
+*/
+
+// FeedViewController
+
+"feed.title.posts" = "Posts";
+"feed.title.search-placeholder" = "Search content...";
+"feed.title.sort-content-by" = "Sort Content by";
+"feed.title.sort-cancel-action" = "Cancel";
+"feed.title.sort-type-by-title" = "Title";
+"feed.title.sort-type-by-date-published" = "Date Published";
+"feed.title.sort-order-ascending" = "Asc";
+"feed.title.sort-order-descending" = "Desc";
+"feed.title.sort" = "Sort";

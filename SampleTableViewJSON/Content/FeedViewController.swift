@@ -52,7 +52,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
 
         // Set view title
-        self.title = "Posts"
+        self.title = FeedLocalizationKey.posts.localizedString
 
         // Show that data is loading
         self.activityIndicator?.startAnimating()
@@ -74,7 +74,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.searchController.dimsBackgroundDuringPresentation = false
         }
         self.definesPresentationContext = true
-        self.searchController.searchBar.placeholder = "Search content..."
+        self.searchController.searchBar.placeholder = FeedLocalizationKey.searchPlaceholder.localizedString
         self.searchController.searchBar.tintColor = UIColor.white
         self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
@@ -123,18 +123,18 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func didPressSortType(_ sender: AnyObject) {
         self.sortType = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .title : .date
 
-        let alertController = UIAlertController(title: "Sort Content by", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString, message: nil, preferredStyle: .actionSheet)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-        let sortByTitleAction = UIAlertAction(title: "Title", style: .default) { action in
+        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString, style: .default) { action in
             self.sortType = .title
             self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
         alertController.addAction(sortByTitleAction)
 
-        let sortByDateAction = UIAlertAction(title: "Date Published", style: .default) { action in
+        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString, style: .default) { action in
             self.sortType = .date
             self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
@@ -194,7 +194,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     fileprivate func createNavBarItems() {
-        let items: Array = ["Asc", "Desc"]
+        let items: Array = [FeedLocalizationKey.sortOrderAscending.localizedString, FeedLocalizationKey.sortOrderDescending.localizedString]
 
         // create segmented control
         let segmentedControl = UISegmentedControl(items: items)
@@ -207,7 +207,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let directionItem: UIBarButtonItem = UIBarButtonItem(customView: segmentedControl)
 
         // sort
-        let sortItem: UIBarButtonItem = UIBarButtonItem(title: "Sort", style: UIBarButtonItemStyle.plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
+        let sortItem: UIBarButtonItem = UIBarButtonItem(title: FeedLocalizationKey.sort.localizedString, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FeedViewController.didPressSortType(_:)))
 
         // add items to bar
         self.navigationItem.setLeftBarButton(directionItem, animated: false)
