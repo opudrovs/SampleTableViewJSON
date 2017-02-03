@@ -21,6 +21,7 @@ enum SortType: Int {
 }
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+    static let tableViewRowHeight = CGFloat(120)
 
     // MARK: - Outlets
 
@@ -78,7 +79,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.searchController.searchBar.tintColor = UIColor.white
         self.searchController.searchBar.barTintColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
 
-        tableView?.tableHeaderView = searchController.searchBar
+        tableView?.tableHeaderView = self.searchController.searchBar
     }
 
     // MARK: - UITableViewDataSource
@@ -103,7 +104,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return FeedViewController.tableViewRowHeight
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -125,21 +126,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString(), message: nil, preferredStyle: .actionSheet)
 
-        let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-
-        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString(), style: .default) { action in
-            self.sortType = .title
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        for action in self.sortActions() {
+            alertController.addAction(action)
         }
-        alertController.addAction(sortByTitleAction)
 
-        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString(), style: .default) { action in
-            self.sortType = .date
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
-        }
-        alertController.addAction(sortByDateAction)
-        
         self.present(alertController, animated: true, completion: nil)
     }
 
@@ -212,6 +202,22 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // add items to bar
         self.navigationItem.setLeftBarButton(directionItem, animated: false)
         self.navigationItem.setRightBarButton(sortItem, animated: false)
+    }
+
+    fileprivate func sortActions() -> [UIAlertAction] {
+        let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
+
+        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString(), style: .default) { action in
+            self.sortType = .title
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        }
+
+        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString(), style: .default) { action in
+            self.sortType = .date
+            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        }
+
+        return [cancelAction, sortByTitleAction, sortByDateAction]
     }
 
     // Sorts content based on sort type and direction and reloads data
