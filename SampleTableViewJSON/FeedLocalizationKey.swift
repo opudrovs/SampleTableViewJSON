@@ -22,7 +22,7 @@ enum FeedLocalizationKey : String {
     static let tableName = "General"
     static let bundleIdentifier = Bundle.main.bundleIdentifier!
 
-    var localizedKey: String {
+    func localizedKey() -> String {
         switch self {
         case .posts: return "feed.title.posts"
         case .searchPlaceholder: return "feed.title.search-placeholder"
@@ -36,7 +36,7 @@ enum FeedLocalizationKey : String {
         }
     }
 
-    var localizedString: String {
-        return NSLocalizedString(self.localizedKey, tableName: FeedLocalizationKey.tableName, bundle: Bundle(identifier: FeedLocalizationKey.bundleIdentifier) ?? Bundle.main , value: "", comment: "")
+    func localizedString() -> String {
+        return NSLocalizedString(self.localizedKey(), tableName: FeedLocalizationKey.tableName, bundle: Bundle(identifier: FeedLocalizationKey.bundleIdentifier) ?? Bundle.main , value: "", comment: "")
     }
 }
