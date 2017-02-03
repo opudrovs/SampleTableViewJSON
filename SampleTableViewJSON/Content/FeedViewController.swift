@@ -85,15 +85,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.searchController.isActive && self.searchController.searchBar.text != "" {
-            return self.contentFilteredArray.count
-        } else {
-            return self.contentArray.count
-        }
+        return self.searchController.isActive && self.searchController.searchBar.text != "" ? self.contentFilteredArray.count : self.contentArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
+        guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
         let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? self.contentFilteredArray[indexPath.row] : self.contentArray[indexPath.row]
 

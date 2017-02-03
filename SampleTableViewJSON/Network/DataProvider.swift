@@ -8,23 +8,23 @@
 
 import Foundation
 
-class DataProvider {
-    func loadData(_ completion: @escaping (Data?) -> Void) {
-        let urlString = "http://olgapudrovska.com:8091/sampledata/posts"
+struct DataURL {
+    static let main = "http://olgapudrovska.com:8091/sampledata/posts"
+}
 
-        guard let url = URL(string: urlString) else {
+class DataProvider {
+
+    func loadData(_ completion: @escaping (Data?) -> Void) {
+
+        guard let url = URL(string: DataURL.main) else {
             print("Error: couldn't create URL from string")
             completion(nil)
             return
         }
 
-        let request = URLRequest(url: url)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
             if let error = error {
                 print("Error loading data: \(error)")
-                completion(data)
-                return
             }
             
             completion(data)

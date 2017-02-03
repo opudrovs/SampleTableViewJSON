@@ -30,17 +30,24 @@ class ContentItemViewController: UIViewController {
 
         self.webView = WKWebView(frame: CGRect.zero, configuration: WKWebViewConfiguration())
 
-        let webView = self.webView!
+        guard let webView = self.webView else { return }
         self.view.addSubview(webView)
 
         webView.translatesAutoresizingMaskIntoConstraints = false
 
-        let topConstraint = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
-        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
-        let leadingConstraint = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
-        let trailingConstraint = NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+        let horizontalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[webView]-0-|", options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: ["webView": webView])
+        self.view.addConstraints(horizontalConstraints)
 
-        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[webView]-0-|", options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: ["webView": webView])
+        self.view.addConstraints(verticalConstraints)
+
+// Alternatively, we can use NSLayoutConstraint API here.
+//        let topConstraint = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+//        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
+//        let leadingConstraint = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
+//        let trailingConstraint = NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+//
+//        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
 
     override func viewWillAppear(_ animated: Bool) {

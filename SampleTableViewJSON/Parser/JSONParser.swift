@@ -49,18 +49,12 @@ class JSONParser {
     }
     
     func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
-        if let  blurb = dict["blurb"] as? String,
-                let url = dict["url"] as? String,
-                let title = dict["title"] as? String,
-                let datePublished = dict["datePublished"] as? Int,
-                let urlImage = dict["urlImage"] as? String {
-
-                let item = ContentItem(blurb: blurb, url: url, title: title, datePublished: datePublished, urlImage: urlImage)
-
-                return item
-        } else {
+        guard let blurb = dict["blurb"] as? String, let url = dict["url"] as? String, let title = dict["title"] as? String, let datePublished = dict["datePublished"] as? Int, let urlImage = dict["urlImage"] as? String else {
             print("Error: couldn't parse JSON dictionary: \(dict)")
+            return nil
         }
-        return nil
+
+        let item = ContentItem(blurb: blurb, url: url, title: title, datePublished: datePublished, urlImage: urlImage)
+        return item
     }
 }
