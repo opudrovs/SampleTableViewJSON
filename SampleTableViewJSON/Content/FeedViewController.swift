@@ -218,22 +218,17 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate func sortTableView(sortType: SortType, sortOrder: SortOrder) {
         switch self.sortType {
         case .title:
-            if self.sortOrder == .ascending {
-                self.contentArray.sort { $0.title < $1.title }
-            } else {
-                self.contentArray.sort { $0.title > $1.title }
-            }
+            self.contentArray.sort { self.before(lhs: $0.title, rhs: $1.title, sortOrder: self.sortOrder) }
             break
-
         case .date:
-            if self.sortOrder == .descending {
-                self.contentArray.sort { $0.datePublished > $1.datePublished }
-            } else {
-                self.contentArray.sort { $0.datePublished < $1.datePublished }
-            }
+            self.contentArray.sort { self.before(lhs: $0.datePublished, rhs: $1.datePublished, sortOrder: self.sortOrder) }
             break
         }
         
         self.tableView?.reloadData()
+    }
+
+    fileprivate func before<T: Comparable>(lhs: T, rhs: T, sortOrder: SortOrder) -> Bool {
+        return sortOrder == .ascending ? lhs < rhs : lhs > rhs
     }
 }
