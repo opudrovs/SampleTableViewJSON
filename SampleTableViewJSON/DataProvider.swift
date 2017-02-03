@@ -21,13 +21,13 @@ class DataProvider {
             return
         }
 
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { (data, response, error) -> Void in
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, response, error) -> Void in
             if let error = error {
                 print("Error loading data: \(error)")
             }
             
             completion(data)
-        }) 
+        }
         
         task.resume()
     }
