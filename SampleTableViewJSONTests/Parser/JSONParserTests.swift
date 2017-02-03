@@ -47,8 +47,10 @@ class JSONParserTests: XCTestCase {
         let results = parser.contentItemsFromResponse(data)
         XCTAssertNil(results)
     }
+
+    // MARK: - Private
     
-    func loadJSONTestData(_ filename: String) -> Data? {
+    fileprivate func loadJSONTestData(_ filename: String) -> Data? {
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: filename, ofType: "json")
         return (try? Data(contentsOf: URL(fileURLWithPath: path!)))

@@ -15,7 +15,6 @@ struct ContentItem {
     var title: String
     var datePublished: Int
     var urlImage: String
-    // auxilliary
     var dateFormatted: String
     var image: UIImage?
 
@@ -32,11 +31,10 @@ struct ContentItem {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.medium
-
         self.dateFormatted = dateFormatter.string(from: date)
 
-        if let imageURL = URL(string: urlImage), let imageData = try? Data(contentsOf: imageURL) {
-            self.image = UIImage(data: imageData)
-        }
+        guard let imageURL = URL(string: urlImage), let imageData = try? Data(contentsOf: imageURL) else { return }
+
+        self.image = UIImage(data: imageData)
     }
 }
