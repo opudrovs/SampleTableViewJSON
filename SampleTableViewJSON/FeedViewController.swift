@@ -30,8 +30,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - Private Properties
 
-    fileprivate var contentArray: [ContentItem]
-    fileprivate var contentFilteredArray: [ContentItem]
+    fileprivate var content: [ContentItem]
+    fileprivate var contentFiltered: [ContentItem]
     fileprivate var sortOrder: SortOrder
     fileprivate var sortType: SortType
     fileprivate var searchController: UISearchController!
@@ -39,8 +39,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Initializer
 
     required init?(coder aDecoder: NSCoder) {
-        self.contentArray = [ContentItem]()
-        self.contentFilteredArray = [ContentItem]()
+        self.content = [ContentItem]()
+        self.contentFiltered = [ContentItem]()
         self.sortOrder = .ascending
         self.sortType = .title
 
@@ -75,13 +75,13 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.searchController.isActive && self.searchController.searchBar.text != "" ? self.contentFilteredArray.count : self.contentArray.count
+        return self.searchController.isActive && self.searchController.searchBar.text != "" ? self.contentFiltered.count : self.content.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
-        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? self.contentFilteredArray[indexPath.row] : self.contentArray[indexPath.row]
+        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? self.contentFiltered[indexPath.row] : self.content[indexPath.row]
 
         cell.contentTitleLabel?.text = content.title
         cell.contentBlurbLabel?.text = content.blurb
@@ -127,10 +127,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == ContentItemVCShowSegueIdentifier {
             guard let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView?.indexPathForSelectedRow else { return }
 
-            let content = (searchController.isActive && searchController.searchBar.text != "") ? contentFilteredArray[indexPath.row] : contentArray[indexPath.row]
+            let contentItem = (searchController.isActive && searchController.searchBar.text != "") ? contentFiltered[indexPath.row] : content[indexPath.row]
 
-            vc.title = content.title
-            vc.urlString = content.url
+            vc.title = contentItem.title
+            vc.urlString = contentItem.url
         }
     }
 
@@ -147,7 +147,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Search
 
     fileprivate func filterContentForSearchText(_ searchText: String) {
-        self.contentFilteredArray = self.contentArray.filter { (contentItem: ContentItem) -> Bool in
+        self.contentFiltered = self.content.filter { (contentItem: ContentItem) -> Bool in
             return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
         }
     }
@@ -160,7 +160,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         provider.loadData { [unowned self] data in
             if let content = parser.contentItemsFromResponse(data) {
-                self.contentArray = content
+                self.content = content
             }
 
             DispatchQueue.main.async {
@@ -172,7 +172,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     fileprivate func createNavBarItems() {
-        let items: Array = [FeedLocalizationKey.sortOrderAscending.localizedString(), FeedLocalizationKey.sortOrderDescending.localizedString()]
+        let items = [FeedLocalizationKey.sortOrderAscending.localizedString(), FeedLocalizationKey.sortOrderDescending.localizedString()]
 
         // create segmented control
         let segmentedControl = UISegmentedControl(items: items)
@@ -227,10 +227,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate func sortTableView(sortType: SortType, sortOrder: SortOrder) {
         switch self.sortType {
         case .title:
-            self.contentArray.sort { self.before(lhs: $0.title, rhs: $1.title, sortOrder: self.sortOrder) }
+            self.content.sort { self.before(lhs: $0.title, rhs: $1.title, sortOrder: self.sortOrder) }
             break
         case .date:
-            self.contentArray.sort { self.before(lhs: $0.datePublished, rhs: $1.datePublished, sortOrder: self.sortOrder) }
+            self.content.sort { self.before(lhs: $0.datePublished, rhs: $1.datePublished, sortOrder: self.sortOrder) }
             break
         }
         
