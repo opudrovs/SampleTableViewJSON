@@ -112,11 +112,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func didPressSortType(_ sender: AnyObject) {
-        self.sortType = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .title : .date
-
         let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString(), message: nil, preferredStyle: .actionSheet)
 
-        for action in self.sortActions() {
+        for action in self.sortActions(currentSortType: self.sortType) {
             alertController.addAction(action)
         }
 
@@ -209,15 +207,15 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return searchController
     }
 
-    fileprivate func sortActions() -> [UIAlertAction] {
+    fileprivate func sortActions(currentSortType: SortType) -> [UIAlertAction] {
         let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
-
-        let sortByTitleAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByTitle.localizedString(), style: .default) { action in
+        let checkmarkString = " ✔︎"
+        let sortByTitleAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByTitle.localizedString())\(currentSortType == .title ? checkmarkString : "")", style: .default) { action in
             self.sortType = .title
             self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
 
-        let sortByDateAction = UIAlertAction(title: FeedLocalizationKey.sortTypeByDatePublished.localizedString(), style: .default) { action in
+        let sortByDateAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByDatePublished.localizedString())\(currentSortType == .date ? checkmarkString : "")", style: .default) { action in
             self.sortType = .date
             self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
         }
