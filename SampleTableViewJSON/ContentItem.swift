@@ -11,19 +11,19 @@ import UIKit
 
 struct ContentItem {
     var blurb: String
-    var url: String
+    var path: String
     var title: String
     var datePublished: Int
-    var urlImage: String
+    var imageURL: String
     var dateFormatted: String
     var image: UIImage?
 
-    init(blurb: String, url: String, title: String, datePublished: Int, urlImage: String) {
+    init(blurb: String, path: String, title: String, datePublished: Int, imageURL: String) {
         self.blurb = blurb
-        self.url = url
+        self.path = path
         self.title = title
         self.datePublished = datePublished
-        self.urlImage = urlImage
+        self.imageURL = imageURL
 
         // Convert milliseconds since 1970 to a human-readable date string
         let timeInterval = TimeInterval(datePublished)
@@ -33,7 +33,7 @@ struct ContentItem {
         dateFormatter.dateStyle = DateFormatter.Style.medium
         self.dateFormatted = dateFormatter.string(from: date)
 
-        guard let imageURL = URL(string: urlImage), let imageData = try? Data(contentsOf: imageURL) else { return }
+        guard let imageURL = URL(string: imageURL), let imageData = try? Data(contentsOf: imageURL) else { return }
 
         self.image = UIImage(data: imageData)
     }

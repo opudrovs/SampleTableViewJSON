@@ -16,7 +16,7 @@ class ContentItemViewController: UIViewController {
     @IBOutlet var webView: WKWebView?
 
     // MARK: - Properties
-    var urlString: String?
+    var viewData: ContentItemViewData?
 
     // MARK: - Initializers
 
@@ -27,6 +27,10 @@ class ContentItemViewController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard let viewData = self.viewData else { return }
+
+        self.title = viewData.title
 
         self.webView = WKWebView(frame: CGRect.zero, configuration: WKWebViewConfiguration())
 
@@ -53,7 +57,7 @@ class ContentItemViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard let urlString = urlString, let url = URL(string: urlString) else { return }
+        guard let viewData = self.viewData, let path = viewData.path, let url = URL(string: path) else { return }
 
         let request = URLRequest(url: url)
         _ = self.webView?.load(request)

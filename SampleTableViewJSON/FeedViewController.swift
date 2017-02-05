@@ -129,8 +129,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
             let contentItem = (searchController.isActive && searchController.searchBar.text != "") ? contentFiltered[indexPath.row] : content[indexPath.row]
 
-            vc.title = contentItem.title
-            vc.urlString = contentItem.url
+            vc.viewData = ContentItemViewData(content: contentItem)
         }
     }
 
