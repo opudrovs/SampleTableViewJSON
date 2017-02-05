@@ -10,4 +10,9 @@ import Foundation
 
 struct FeedViewData {
     
+    let content: [ContentItem]
+
+    init(content: [ContentItem]) {
+        self.content = content
+    }
 }

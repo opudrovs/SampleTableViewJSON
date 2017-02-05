@@ -12,6 +12,7 @@ typealias JSONArray = [AnyObject]
 typealias JSONDictionary = [String: AnyObject]
 
 struct ContentKey {
+    
     static let blurb = "blurb"
     static let path = "url"
     static let title = "title"
@@ -20,6 +21,7 @@ struct ContentKey {
 }
 
 class JSONParser {
+
     func parseDictionary(_ data: Data?) -> JSONDictionary? {
         do {
             if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary {

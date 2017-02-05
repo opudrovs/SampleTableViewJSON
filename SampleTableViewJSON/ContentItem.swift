@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct ContentItem {
+    
     var blurb: String
     var path: String
     var title: String

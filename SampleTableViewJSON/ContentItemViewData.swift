@@ -9,6 +9,7 @@
 import Foundation
 
 struct ContentItemViewData {
+    
     let content: ContentItem
 
     let path: String?

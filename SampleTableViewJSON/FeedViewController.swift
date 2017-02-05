@@ -21,6 +21,7 @@ enum SortType: Int {
 }
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
+    
     static let tableViewRowHeight = CGFloat(120)
 
     // MARK: - Outlets
@@ -28,7 +29,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var activityIndicator: UIActivityIndicatorView?
     @IBOutlet var tableView: UITableView?
 
-    // MARK: - Private Properties
+    // MARK: - Properties
+
+    var viewData: FeedViewData?
 
     fileprivate var content: [ContentItem]
     fileprivate var contentFiltered: [ContentItem]

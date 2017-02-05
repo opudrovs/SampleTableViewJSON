@@ -16,6 +16,7 @@ class ContentItemViewController: UIViewController {
     @IBOutlet var webView: WKWebView?
 
     // MARK: - Properties
+
     var viewData: ContentItemViewData?
 
     // MARK: - Initializers
