@@ -19,8 +19,8 @@ struct ContentKey {
     static let urlImage = "urlImage"
 }
 
-struct JSONParser {
-    static func parseDictionary(_ data: Data?) -> JSONDictionary? {
+class JSONParser {
+    func parseDictionary(_ data: Data?) -> JSONDictionary? {
         do {
             if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary {
                 return json
@@ -31,7 +31,7 @@ struct JSONParser {
         return nil
     }
 
-    static func parseArray(_ data: Data?) -> JSONArray? {
+    func parseArray(_ data: Data?) -> JSONArray? {
         do {
             if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONArray {
                 return json
@@ -42,7 +42,7 @@ struct JSONParser {
         return nil
     }
     
-    static func contentItemsFromResponse(_ data: Data?) -> [ContentItem]? {
+    func contentItemsFromResponse(_ data: Data?) -> [ContentItem]? {
         guard let parsedArray = parseArray(data) else {
             print("Error: couldn't parse array from data")
             return nil
@@ -56,7 +56,7 @@ struct JSONParser {
         return contentItems.flatMap { parseContentItem($0) }
     }
     
-    static func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
+    func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
         guard let blurb = dict[ContentKey.blurb] as? String, let url = dict[ContentKey.url] as? String, let title = dict[ContentKey.title] as? String, let datePublished = dict[ContentKey.datePublished] as? Int, let urlImage = dict[ContentKey.urlImage] as? String else {
             print("Error: couldn't parse JSON dictionary: \(dict)")
             return nil
