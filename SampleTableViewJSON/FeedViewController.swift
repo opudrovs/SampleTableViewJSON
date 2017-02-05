@@ -155,11 +155,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Private
 
     fileprivate func refresh() {
-        let provider = DataProvider()
-        let parser = JSONParser()
-
-        provider.loadData { [unowned self] data in
-            if let content = parser.contentItemsFromResponse(data) {
+        DataProvider.loadData { [unowned self] data in
+            if let content = JSONParser.contentItemsFromResponse(data) {
                 self.content = content
             }
 

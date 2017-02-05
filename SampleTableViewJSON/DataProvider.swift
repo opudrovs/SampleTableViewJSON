@@ -12,9 +12,9 @@ struct DataURL {
     static let main = "http://olgapudrovska.com:8091/sampledata/posts"
 }
 
-class DataProvider {
+struct DataProvider {
 
-    func loadData(_ completion: @escaping (Data?) -> Void) {
+    static func loadData(_ completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: DataURL.main) else {
             print("Error: couldn't create URL from string")
             completion(nil)
