@@ -49,9 +49,6 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Show that data is loading
         self.activityIndicator?.startAnimating()
         self.tableView?.isHidden = true
- 
-        // Load JSON
-        self.refresh()
 
         // Create navigation bar buttons
         self.createNavBarItems()
@@ -61,6 +58,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         self.searchController = self.createSearchController()
         self.tableView?.tableHeaderView = self.searchController.searchBar
+
+        // Load data
+        self.loadData()
     }
 
     // MARK: - UITableViewDataSource
@@ -100,7 +100,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Event Handlers
 
     func didPressSortOrder(_ sender: AnyObject) {
-        guard var viewData = self.viewData else { return }
+        guard let viewData = self.viewData else { return }
 
         viewData.updateSortOrder(sortOrder: (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .ascending : .descending)
 
@@ -154,15 +154,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.title = self.viewData?.title ?? ""
     }
 
-    fileprivate func refresh() {
-        let provider = DataProvider()
-        let parser = JSONParser()
-
-        provider.loadData { [unowned self] data in
-            if let content = parser.contentItemsFromResponse(data) {
-                self.viewData?.updateContent(content: content)
-            }
-
+    fileprivate func loadData() {
+        self.viewData?.loadData {
             DispatchQueue.main.async {
                 self.activityIndicator?.stopAnimating()
                 self.tableView?.isHidden = false
@@ -213,14 +206,14 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
         let checkmarkString = " ✔︎"
         let sortByTitleAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByTitle.localizedString())\(currentSortType == .title ? checkmarkString : "")", style: .default) { action in
-            self.viewData?.updateSortType(sortType: .title)
             if let viewData = self.viewData {
+                viewData.updateSortType(sortType: .title)
                 self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
             }
         }
 
         let sortByDateAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByDatePublished.localizedString())\(currentSortType == .date ? checkmarkString : "")", style: .default) { action in
-            if var viewData = self.viewData {
+            if let viewData = self.viewData {
                 viewData.updateSortType(sortType: .date)
                 self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
             }

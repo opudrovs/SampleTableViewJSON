@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FeedViewData {
+class FeedViewData {
     var content: [ContentItem] {
         return self._content
     }
@@ -43,29 +43,29 @@ struct FeedViewData {
         self._title = FeedLocalizationKey.posts.localizedString()
     }
 
-    mutating func updateContent(content: [ContentItem]) {
+    func updateContent(content: [ContentItem]) {
         self._content = content
     }
 
-    mutating func updateFilteredContent(filteredContent: [ContentItem]) {
+    func updateFilteredContent(filteredContent: [ContentItem]) {
         self._filteredContent = filteredContent
     }
 
-    mutating func updateSortType(sortType: SortType) {
+    func updateSortType(sortType: SortType) {
         self._sortType = sortType
     }
 
-    mutating func updateSortOrder(sortOrder: SortOrder) {
+    func updateSortOrder(sortOrder: SortOrder) {
         self._sortOrder = sortOrder
     }
 
-    mutating func findText(searchText :String) {
+    func findText(searchText :String) {
         self._filteredContent = self._content.filter { (contentItem: ContentItem) -> Bool in
             return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
         }
     }
 
-    mutating func sortContent(sortType: SortType, sortOrder: SortOrder) {
+    func sortContent(sortType: SortType, sortOrder: SortOrder) {
         self.updateSortType(sortType: sortType)
         self.updateSortOrder(sortOrder: sortOrder)
         switch sortType {
@@ -75,6 +75,19 @@ struct FeedViewData {
         case .date:
             self._content.sort { self.before(lhs: $0.datePublished, rhs: $1.datePublished, sortOrder: sortOrder) }
             break
+        }
+    }
+
+    func loadData(completion: (() -> Void)?) {
+        let provider = DataProvider()
+        let parser = JSONParser()
+
+        provider.loadData { [unowned self] data in
+            if let content = parser.contentItemsFromResponse(data) {
+                self.updateContent(content: content)
+            }
+
+            completion?()
         }
     }
 
