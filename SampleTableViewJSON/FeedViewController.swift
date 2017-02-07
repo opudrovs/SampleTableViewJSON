@@ -10,16 +10,6 @@ import UIKit
 
 let ContentItemVCShowSegueIdentifier = "ShowContentItem"
 
-enum SortOrder: Int {
-    case ascending = 0
-    case descending
-}
-
-enum SortType: Int {
-    case title = 0
-    case date
-}
-
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     
     static let tableViewRowHeight = CGFloat(120)
@@ -67,7 +57,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let viewData = self.viewData else { return 0 }
-        return self.searchController.isActive && self.searchController.searchBar.text != "" ? viewData.filteredContent.count : viewData.content.count
+        return viewData.contentCount(for: self.searchController.isActive && self.searchController.searchBar.text != "" ? .filtered : .all)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -135,7 +125,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
-            self.filterContentForSearchText(searchText)
+            self.filterContent(for: searchText)
 
             self.tableView?.reloadData()
         }
@@ -143,8 +133,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - Search
 
-    fileprivate func filterContentForSearchText(_ searchText: String) {
-        self.viewData?.findText(searchText: searchText)
+    fileprivate func filterContent(for searchText: String) {
+        self.viewData?.filterContent(for: searchText)
     }
 
     // MARK: - Private

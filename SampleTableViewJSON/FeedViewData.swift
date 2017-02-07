@@ -8,6 +8,21 @@
 
 import Foundation
 
+enum SortOrder: Int {
+    case ascending = 0
+    case descending
+}
+
+enum SortType: Int {
+    case title = 0
+    case date
+}
+
+enum ContentMode: Int {
+    case all = 0
+    case filtered
+}
+
 class FeedViewData {
     var content: [ContentItem] {
         return self._content
@@ -59,9 +74,9 @@ class FeedViewData {
         self._sortOrder = sortOrder
     }
 
-    func findText(searchText :String) {
+    func filterContent(for searchText: String) {
         self._filteredContent = self._content.filter { (contentItem: ContentItem) -> Bool in
-            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
+            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
         }
     }
 
@@ -90,6 +105,14 @@ class FeedViewData {
             completion?()
         }
     }
+
+    // MARK: - UITableViewDataSource Helpers
+
+    func contentCount(for mode: ContentMode) -> Int {
+        return mode == .all ? self._content.count : self._filteredContent.count
+    }
+
+    // MARK: - Private
 
     fileprivate func before<T: Comparable>(lhs: T, rhs: T, sortOrder: SortOrder) -> Bool {
         return sortOrder == .ascending ? lhs < rhs : lhs > rhs
