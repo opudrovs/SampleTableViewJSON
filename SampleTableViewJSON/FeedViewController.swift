@@ -33,20 +33,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     var viewData: FeedViewData?
 
-    fileprivate var content: [ContentItem]
-    fileprivate var contentFiltered: [ContentItem]
-    fileprivate var sortOrder: SortOrder
-    fileprivate var sortType: SortType
     fileprivate var searchController: UISearchController!
 
     // MARK: - Initializer
 
     required init?(coder aDecoder: NSCoder) {
-        self.content = [ContentItem]()
-        self.contentFiltered = [ContentItem]()
-        self.sortOrder = .ascending
-        self.sortType = .title
-
         super.init(coder: aDecoder)
     }
 
@@ -55,13 +46,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set view title
-        self.title = FeedLocalizationKey.posts.localizedString()
-
         // Show that data is loading
         self.activityIndicator?.startAnimating()
         self.tableView?.isHidden = true
-
+ 
         // Load JSON
         self.refresh()
 
@@ -78,13 +66,16 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.searchController.isActive && self.searchController.searchBar.text != "" ? self.contentFiltered.count : self.content.count
+        guard let viewData = self.viewData else { return 0 }
+        return self.searchController.isActive && self.searchController.searchBar.text != "" ? viewData.filteredContent.count : viewData.content.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
-        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? self.contentFiltered[indexPath.row] : self.content[indexPath.row]
+        guard let viewData = self.viewData else { return cell }
+
+        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? viewData.filteredContent[indexPath.row] : viewData.content[indexPath.row]
 
         cell.contentTitleLabel?.text = content.title
         cell.contentBlurbLabel?.text = content.blurb
@@ -109,15 +100,19 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Event Handlers
 
     func didPressSortOrder(_ sender: AnyObject) {
-        self.sortOrder = (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .ascending : .descending
+        guard var viewData = self.viewData else { return }
 
-        self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+        viewData.updateSortOrder(sortOrder: (sender as? UISegmentedControl)?.selectedSegmentIndex == 0 ? .ascending : .descending)
+
+        self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
     }
 
     func didPressSortType(_ sender: AnyObject) {
+        guard let viewData = self.viewData else { return }
+
         let alertController = UIAlertController(title: FeedLocalizationKey.sortContentBy.localizedString(), message: nil, preferredStyle: .actionSheet)
 
-        for action in self.sortActions(currentSortType: self.sortType) {
+        for action in self.sortActions(currentSortType: viewData.sortType) {
             alertController.addAction(action)
         }
 
@@ -128,11 +123,11 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ContentItemVCShowSegueIdentifier {
-            guard let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView?.indexPathForSelectedRow else { return }
+            guard let viewData = self.viewData, let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView?.indexPathForSelectedRow else { return }
 
-            let contentItem = (searchController.isActive && searchController.searchBar.text != "") ? contentFiltered[indexPath.row] : content[indexPath.row]
-
-            vc.viewData = ContentItemViewData(content: contentItem)
+            let contentItem = (searchController.isActive && searchController.searchBar.text != "") ? viewData.filteredContent[indexPath.row] : viewData.content[indexPath.row]
+            let destinationViewData = ContentItemViewData(content: contentItem)
+            vc.viewData = destinationViewData
         }
     }
 
@@ -149,12 +144,15 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Search
 
     fileprivate func filterContentForSearchText(_ searchText: String) {
-        self.contentFiltered = self.content.filter { (contentItem: ContentItem) -> Bool in
-            return contentItem.title.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) == nil || contentItem.blurb.range(of: searchText, options: NSString.CompareOptions.caseInsensitive) != nil
-        }
+        self.viewData?.findText(searchText: searchText)
     }
 
     // MARK: - Private
+
+    func updateWithViewData(viewData: FeedViewData) {
+        // Set view title
+        self.title = self.viewData?.title ?? ""
+    }
 
     fileprivate func refresh() {
         let provider = DataProvider()
@@ -162,13 +160,15 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         provider.loadData { [unowned self] data in
             if let content = parser.contentItemsFromResponse(data) {
-                self.content = content
+                self.viewData?.updateContent(content: content)
             }
 
             DispatchQueue.main.async {
                 self.activityIndicator?.stopAnimating()
                 self.tableView?.isHidden = false
-                self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+                if let viewData = self.viewData {
+                    self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
+                }
             }
         }
     }
@@ -213,13 +213,17 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cancelAction = UIAlertAction(title: FeedLocalizationKey.sortCancelAction.localizedString(), style: .cancel, handler: nil)
         let checkmarkString = " ✔︎"
         let sortByTitleAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByTitle.localizedString())\(currentSortType == .title ? checkmarkString : "")", style: .default) { action in
-            self.sortType = .title
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+            self.viewData?.updateSortType(sortType: .title)
+            if let viewData = self.viewData {
+                self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
+            }
         }
 
         let sortByDateAction = UIAlertAction(title: "\(FeedLocalizationKey.sortTypeByDatePublished.localizedString())\(currentSortType == .date ? checkmarkString : "")", style: .default) { action in
-            self.sortType = .date
-            self.sortTableView(sortType: self.sortType, sortOrder: self.sortOrder)
+            if var viewData = self.viewData {
+                viewData.updateSortType(sortType: .date)
+                self.sortTableView(sortType: viewData.sortType, sortOrder: viewData.sortOrder)
+            }
         }
 
         return [cancelAction, sortByTitleAction, sortByDateAction]
@@ -227,19 +231,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // Sorts content based on sort type and direction and reloads data
     fileprivate func sortTableView(sortType: SortType, sortOrder: SortOrder) {
-        switch self.sortType {
-        case .title:
-            self.content.sort { self.before(lhs: $0.title, rhs: $1.title, sortOrder: self.sortOrder) }
-            break
-        case .date:
-            self.content.sort { self.before(lhs: $0.datePublished, rhs: $1.datePublished, sortOrder: self.sortOrder) }
-            break
-        }
+        self.viewData?.sortContent(sortType: sortType, sortOrder: sortOrder)
         
         self.tableView?.reloadData()
-    }
-
-    fileprivate func before<T: Comparable>(lhs: T, rhs: T, sortOrder: SortOrder) -> Bool {
-        return sortOrder == .ascending ? lhs < rhs : lhs > rhs
     }
 }
