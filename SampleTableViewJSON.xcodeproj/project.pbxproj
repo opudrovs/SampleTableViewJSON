@@ -132,18 +132,10 @@
 			path = SampleTableViewJSONTests/Data;
 			sourceTree = SOURCE_ROOT;
 		};
-		77411E091E4A9B7E00D4847A /* Carthage */ = {
-			isa = PBXGroup;
-			children = (
-				77411E0E1E4AA12800D4847A /* iOS */,
-			);
-			name = Carthage;
-			sourceTree = "<group>";
-		};
 		77411E0C1E4A9BA700D4847A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				77411E091E4A9B7E00D4847A /* Carthage */,
+				77411E0E1E4AA12800D4847A /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
