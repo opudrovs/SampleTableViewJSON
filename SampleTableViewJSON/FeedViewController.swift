@@ -57,19 +57,18 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let viewData = self.viewData else { return 0 }
-        return viewData.contentCount(for: self.searchController.isActive && self.searchController.searchBar.text != "" ? .filtered : .all)
+        return viewData.contentCount(for: self.contentMode())
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView?.dequeueReusableCell(withIdentifier: FeedTableViewCellIdentifier, for:indexPath) as? FeedTableViewCell else { return UITableViewCell() }
 
-        guard let viewData = self.viewData else { return cell }
+        guard let viewData = self.viewData, let contentItem = viewData.contentItem(for: indexPath, mode: self.contentMode()) else { return cell }
 
-        let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? viewData.filteredContent[indexPath.row] : viewData.content[indexPath.row]
-        let cellViewData = FeedTableViewCellViewData(content: content)
+        let cellViewData = FeedTableViewCellViewData(content: contentItem)
         cell.viewData = cellViewData
         cell.update(with: cellViewData)
-        
+
         return cell
     }
 
@@ -113,7 +112,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if segue.identifier == ContentItemVCShowSegueIdentifier {
             guard let viewData = self.viewData, let vc = segue.destination as? ContentItemViewController, let indexPath = self.tableView?.indexPathForSelectedRow else { return }
 
-            let contentItem = (searchController.isActive && searchController.searchBar.text != "") ? viewData.filteredContent[indexPath.row] : viewData.content[indexPath.row]
+            guard let contentItem = viewData.contentItem(for: indexPath, mode: self.contentMode()) else { return }
+
             let destinationViewData = ContentItemViewData(content: contentItem)
             vc.viewData = destinationViewData
         }
@@ -215,5 +215,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.viewData?.sortContent(sortType: sortType, sortOrder: sortOrder)
         
         self.tableView?.reloadData()
+    }
+
+    fileprivate func contentMode() -> ContentMode {
+        return self.searchController.isActive && self.searchController.searchBar.text != "" ? .filtered : .all
     }
 }

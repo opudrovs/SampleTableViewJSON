@@ -112,6 +112,10 @@ class FeedViewData {
         return mode == .all ? self._content.count : self._filteredContent.count
     }
 
+    func contentItem(for indexPath: IndexPath, mode: ContentMode) -> ContentItem? {
+        return mode == .filtered ? self.filteredContent[indexPath.row] : self.content[indexPath.row]
+    }
+
     // MARK: - Private
 
     fileprivate func before<T: Comparable>(lhs: T, rhs: T, sortOrder: SortOrder) -> Bool {
