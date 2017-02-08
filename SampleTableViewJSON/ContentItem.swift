@@ -7,34 +7,20 @@
 //
 
 import Foundation
-import UIKit
 
 struct ContentItem {
+    
     var blurb: String
-    var url: String
+    var path: String
     var title: String
     var datePublished: Int
-    var urlImage: String
-    var dateFormatted: String
-    var image: UIImage?
+    var imageURL: String
 
-    init(blurb: String, url: String, title: String, datePublished: Int, urlImage: String) {
+    init(blurb: String, path: String, title: String, datePublished: Int, imageURL: String) {
         self.blurb = blurb
-        self.url = url
+        self.path = path
         self.title = title
         self.datePublished = datePublished
-        self.urlImage = urlImage
-
-        // Convert milliseconds since 1970 to a human-readable date string
-        let timeInterval = TimeInterval(datePublished)
-        let date = Date(timeIntervalSince1970: timeInterval)
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        self.dateFormatted = dateFormatter.string(from: date)
-
-        guard let imageURL = URL(string: urlImage), let imageData = try? Data(contentsOf: imageURL) else { return }
-
-        self.image = UIImage(data: imageData)
+        self.imageURL = imageURL
     }
 }

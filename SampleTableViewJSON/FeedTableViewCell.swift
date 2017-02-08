@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 let FeedTableViewCellIdentifier = "FeedTableViewCell"
 
@@ -18,4 +19,17 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet var contentTitleLabel: UILabel?
     @IBOutlet var contentBlurbLabel: UILabel?
     @IBOutlet var contentDateLabel: UILabel?
+
+    var viewData: FeedTableViewCellViewData?
+
+    func update(with viewData: FeedTableViewCellViewData) {
+        guard let viewData = self.viewData else { return }
+
+        self.contentTitleLabel?.text = viewData.titleLabelText
+        self.contentBlurbLabel?.text = viewData.blurbLabelText
+        self.contentDateLabel?.text = viewData.dateLabelText
+
+        guard let imageURL = URL(string: viewData.imageURL) else { return }
+        self.contentImage?.sd_setImage(with: imageURL)
+    }
 }

@@ -12,14 +12,16 @@ typealias JSONArray = [AnyObject]
 typealias JSONDictionary = [String: AnyObject]
 
 struct ContentKey {
+    
     static let blurb = "blurb"
-    static let url = "url"
+    static let path = "url"
     static let title = "title"
     static let datePublished = "datePublished"
-    static let urlImage = "urlImage"
+    static let imageURL = "urlImage"
 }
 
 class JSONParser {
+
     func parseDictionary(_ data: Data?) -> JSONDictionary? {
         do {
             if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary {
@@ -57,12 +59,12 @@ class JSONParser {
     }
     
     func parseContentItem(_ dict: JSONDictionary) -> ContentItem? {
-        guard let blurb = dict[ContentKey.blurb] as? String, let url = dict[ContentKey.url] as? String, let title = dict[ContentKey.title] as? String, let datePublished = dict[ContentKey.datePublished] as? Int, let urlImage = dict[ContentKey.urlImage] as? String else {
+        guard let blurb = dict[ContentKey.blurb] as? String, let path = dict[ContentKey.path] as? String, let title = dict[ContentKey.title] as? String, let datePublished = dict[ContentKey.datePublished] as? Int, let imageURL = dict[ContentKey.imageURL] as? String else {
             print("Error: couldn't parse JSON dictionary: \(dict)")
             return nil
         }
 
-        let item = ContentItem(blurb: blurb, url: url, title: title, datePublished: datePublished, urlImage: urlImage)
+        let item = ContentItem(blurb: blurb, path: path, title: title, datePublished: datePublished, imageURL: imageURL)
         return item
     }
 }
