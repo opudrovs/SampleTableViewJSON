@@ -66,12 +66,10 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let viewData = self.viewData else { return cell }
 
         let content = (self.searchController.isActive && self.searchController.searchBar.text != "") ? viewData.filteredContent[indexPath.row] : viewData.content[indexPath.row]
-
-        cell.contentTitleLabel?.text = content.title
-        cell.contentBlurbLabel?.text = content.blurb
-        cell.contentDateLabel?.text = content.dateFormatted
-        cell.contentImage?.image = content.image
-
+        let cellViewData = FeedTableViewCellViewData(content: content)
+        cell.viewData = cellViewData
+        cell.update(with: cellViewData)
+        
         return cell
     }
 
@@ -139,7 +137,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     // MARK: - Private
 
-    func updateWithViewData(viewData: FeedViewData) {
+    func update(with viewData: FeedViewData) {
         // Set view title
         self.title = self.viewData?.title ?? ""
     }

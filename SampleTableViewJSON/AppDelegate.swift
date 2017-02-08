@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let nc = self.window?.rootViewController as? UINavigationController, nc.viewControllers.count > 0, let vc = nc.viewControllers[0] as? FeedViewController {
             let viewData = FeedViewData(content: [])
             vc.viewData = viewData
-            vc.updateWithViewData(viewData: viewData)
+            vc.update(with: viewData)
         }
         return true
     }

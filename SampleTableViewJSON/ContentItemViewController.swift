@@ -48,12 +48,12 @@ class ContentItemViewController: UIViewController {
         super.viewWillAppear(animated)
 
         guard let viewData = self.viewData else { return }
-        self.updateWithViewData(viewData: viewData)
+        self.update(with: viewData)
     }
 
     // MARK: - Private
 
-    fileprivate func updateWithViewData(viewData: ContentItemViewData) {
+    fileprivate func update(with viewData: ContentItemViewData) {
         self.title = viewData.title
 
         guard let path = viewData.path, let url = URL(string: path) else { return }
