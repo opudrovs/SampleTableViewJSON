@@ -113,12 +113,17 @@ class FeedViewData {
     }
 
     func contentItem(for indexPath: IndexPath, mode: ContentMode) -> ContentItem? {
-        return mode == .filtered ? self.filteredContent[indexPath.row] : self.content[indexPath.row]
+        let content = mode == .filtered ? self.filteredContent : self.content
+        return self.isValidIndexPath(indexPath: indexPath, content: content) ? content[indexPath.row] : nil
     }
 
     // MARK: - Private
 
     fileprivate func before<T: Comparable>(lhs: T, rhs: T, sortOrder: SortOrder) -> Bool {
         return sortOrder == .ascending ? lhs < rhs : lhs > rhs
+    }
+
+    fileprivate func isValidIndexPath(indexPath: IndexPath, content: [ContentItem]) -> Bool {
+        return 0 ..< content.count ~= indexPath.row
     }
 }
