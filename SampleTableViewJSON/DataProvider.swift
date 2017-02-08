@@ -14,7 +14,7 @@ struct DataURL {
 
 class DataProvider {
 
-    func loadData(_ completion: @escaping (Data?) -> Void) {
+    func loadData(completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: DataURL.main) else {
             print("Error: couldn't create URL from string")
             completion(nil)

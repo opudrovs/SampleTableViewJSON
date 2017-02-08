@@ -10,10 +10,15 @@
 		773713E41CAB5A0D00441321 /* JSONParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773713E31CAB5A0D00441321 /* JSONParserTests.swift */; };
 		773713E81CAB6AAD00441321 /* invalid-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 773713E61CAB6AAD00441321 /* invalid-response.json */; };
 		773713E91CAB6AAD00441321 /* valid-response.json in Resources */ = {isa = PBXBuildFile; fileRef = 773713E71CAB6AAD00441321 /* valid-response.json */; };
+		77411E071E4A89B900D4847A /* FeedTableViewCellViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77411E061E4A89B900D4847A /* FeedTableViewCellViewData.swift */; };
+		77411E0B1E4A9B9300D4847A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77411E0A1E4A9B9300D4847A /* SDWebImage.framework */; };
+		77411E0D1E4AA06400D4847A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77411E0A1E4A9B9300D4847A /* SDWebImage.framework */; };
 		777A86841CAA310A0084663E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A86721CAA310A0084663E /* AppDelegate.swift */; };
 		777A868B1CAA310A0084663E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777A867E1CAA310A0084663E /* LaunchScreen.xib */; };
 		777A868C1CAA310A0084663E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777A86801CAA310A0084663E /* Main.storyboard */; };
 		777A868D1CAA310A0084663E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777A86821CAA310A0084663E /* Images.xcassets */; };
+		77B3789B1E46928F006A9F77 /* FeedViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B3789A1E46928F006A9F77 /* FeedViewData.swift */; };
+		77B3789D1E4692A1006A9F77 /* ContentItemViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B3789C1E4692A1006A9F77 /* ContentItemViewData.swift */; };
 		77C3D8A81E44A7E80068173C /* General.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77C3D8A71E44A7E80068173C /* General.strings */; };
 		77DB5FBE1E44D8A2005C4AE7 /* ContentItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DB5FBC1E44D8A2005C4AE7 /* ContentItemViewController.swift */; };
 		77DB5FBF1E44D8A2005C4AE7 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DB5FBD1E44D8A2005C4AE7 /* FeedViewController.swift */; };
@@ -41,11 +46,15 @@
 		773713E31CAB5A0D00441321 /* JSONParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParserTests.swift; sourceTree = "<group>"; };
 		773713E61CAB6AAD00441321 /* invalid-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "invalid-response.json"; sourceTree = "<group>"; };
 		773713E71CAB6AAD00441321 /* valid-response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "valid-response.json"; sourceTree = "<group>"; };
+		77411E061E4A89B900D4847A /* FeedTableViewCellViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedTableViewCellViewData.swift; sourceTree = "<group>"; };
+		77411E0A1E4A9B9300D4847A /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		777A86721CAA310A0084663E /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		777A867F1CAA310A0084663E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		777A86811CAA310A0084663E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		777A86821CAA310A0084663E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		777A86831CAA310A0084663E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77B3789A1E46928F006A9F77 /* FeedViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewData.swift; sourceTree = "<group>"; };
+		77B3789C1E4692A1006A9F77 /* ContentItemViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItemViewData.swift; sourceTree = "<group>"; };
 		77C3D8A71E44A7E80068173C /* General.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = General.strings; sourceTree = "<group>"; };
 		77DB5FBC1E44D8A2005C4AE7 /* ContentItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentItemViewController.swift; sourceTree = "<group>"; };
 		77DB5FBD1E44D8A2005C4AE7 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77411E0B1E4A9B9300D4847A /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77411E0D1E4AA06400D4847A /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +88,7 @@
 		770EC59E1AC6C4E2005F1FFB = {
 			isa = PBXGroup;
 			children = (
+				77411E0C1E4A9BA700D4847A /* Frameworks */,
 				77BBEB061C9F567400EC2455 /* SampleTableViewJSON */,
 				773713D31CAB53BC00441321 /* SampleTableViewJSONTests */,
 				770EC5A81AC6C4E2005F1FFB /* Products */,
@@ -119,6 +131,22 @@
 			name = Data;
 			path = SampleTableViewJSONTests/Data;
 			sourceTree = SOURCE_ROOT;
+		};
+		77411E0C1E4A9BA700D4847A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77411E0E1E4AA12800D4847A /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77411E0E1E4AA12800D4847A /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				77411E0A1E4A9B9300D4847A /* SDWebImage.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
 		};
 		775D54901E05F1840077E71F /* View Controller */ = {
 			isa = PBXGroup;
@@ -173,16 +201,27 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		77B378991E469184006A9F77 /* ViewData */ = {
+			isa = PBXGroup;
+			children = (
+				77B3789C1E4692A1006A9F77 /* ContentItemViewData.swift */,
+				77411E061E4A89B900D4847A /* FeedTableViewCellViewData.swift */,
+				77B3789A1E46928F006A9F77 /* FeedViewData.swift */,
+			);
+			name = ViewData;
+			sourceTree = "<group>";
+		};
 		77BBEB061C9F567400EC2455 /* SampleTableViewJSON */ = {
 			isa = PBXGroup;
 			children = (
 				777A86721CAA310A0084663E /* AppDelegate.swift */,
-				775D54901E05F1840077E71F /* View Controller */,
-				775D54911E05F19B0077E71F /* View */,
+				77C3D8A91E44B2BB0068173C /* Localization */,
 				777A86771CAA310A0084663E /* Model */,
 				777A86791CAA310A0084663E /* Network */,
 				777A867B1CAA310A0084663E /* Parser */,
-				77C3D8A91E44B2BB0068173C /* Localization */,
+				775D54911E05F19B0077E71F /* View */,
+				775D54901E05F1840077E71F /* View Controller */,
+				77B378991E469184006A9F77 /* ViewData */,
 				777A867D1CAA310A0084663E /* Supporting Files */,
 			);
 			path = SampleTableViewJSON;
@@ -206,6 +245,7 @@
 				770EC5A31AC6C4E2005F1FFB /* Sources */,
 				770EC5A41AC6C4E2005F1FFB /* Frameworks */,
 				770EC5A51AC6C4E2005F1FFB /* Resources */,
+				77411E081E4A9B6400D4847A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -299,6 +339,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		77411E081E4A9B6400D4847A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		770EC5A31AC6C4E2005F1FFB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -309,9 +366,12 @@
 				77DB5FC71E44D8D8005C4AE7 /* JSONParser.swift in Sources */,
 				77DB5FC31E44D8BD005C4AE7 /* FeedLocalizationKey.swift in Sources */,
 				77DB5FC11E44D8B2005C4AE7 /* FeedTableViewCell.swift in Sources */,
+				77B3789D1E4692A1006A9F77 /* ContentItemViewData.swift in Sources */,
 				77DB5FBF1E44D8A2005C4AE7 /* FeedViewController.swift in Sources */,
 				77DB5FC91E44D8E1005C4AE7 /* ContentItem.swift in Sources */,
+				77411E071E4A89B900D4847A /* FeedTableViewCellViewData.swift in Sources */,
 				77DB5FBE1E44D8A2005C4AE7 /* ContentItemViewController.swift in Sources */,
+				77B3789B1E46928F006A9F77 /* FeedViewData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +506,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "SampleTableViewJSON/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -463,6 +527,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "SampleTableViewJSON/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -480,6 +548,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = SampleTableViewJSONTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -499,6 +572,11 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = SampleTableViewJSONTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

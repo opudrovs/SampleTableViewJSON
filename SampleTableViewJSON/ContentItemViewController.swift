@@ -16,7 +16,8 @@ class ContentItemViewController: UIViewController {
     @IBOutlet var webView: WKWebView?
 
     // MARK: - Properties
-    var urlString: String?
+
+    var viewData: ContentItemViewData?
 
     // MARK: - Initializers
 
@@ -25,6 +26,7 @@ class ContentItemViewController: UIViewController {
     }
 
     // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,20 +42,21 @@ class ContentItemViewController: UIViewController {
 
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[webView]-0-|", options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: ["webView": webView])
         self.view.addConstraints(verticalConstraints)
-
-// Alternatively, we can use NSLayoutConstraint API here.
-//        let topConstraint = NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
-//        let bottomConstraint = NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
-//        let leadingConstraint = NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
-//        let trailingConstraint = NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
-//
-//        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        guard let urlString = urlString, let url = URL(string: urlString) else { return }
+        guard let viewData = self.viewData else { return }
+        self.update(with: viewData)
+    }
+
+    // MARK: - Private
+
+    fileprivate func update(with viewData: ContentItemViewData) {
+        self.title = viewData.title
+
+        guard let path = viewData.path, let url = URL(string: path) else { return }
 
         let request = URLRequest(url: url)
         _ = self.webView?.load(request)

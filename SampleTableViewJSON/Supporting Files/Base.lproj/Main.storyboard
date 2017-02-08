@@ -91,28 +91,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="E9y-KT-iYR" secondAttribute="trailing" id="CKO-UP-AjJ"/>
-                            <constraint firstAttribute="trailing" secondItem="E9y-KT-iYR" secondAttribute="trailing" id="IQv-0j-r8c"/>
                             <constraint firstItem="E9y-KT-iYR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Jo5-om-3Oj"/>
-                            <constraint firstItem="E9y-KT-iYR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="QFf-W7-AHc"/>
                             <constraint firstItem="E9y-KT-iYR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QQz-zp-ZDM"/>
-                            <constraint firstItem="E9y-KT-iYR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="top" constant="44" id="aGG-ii-c60"/>
                             <constraint firstAttribute="centerY" secondItem="Ipd-FP-e0E" secondAttribute="centerY" id="eWK-Id-D47"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="E9y-KT-iYR" secondAttribute="bottom" id="h7D-uX-18f"/>
                             <constraint firstAttribute="centerX" secondItem="Ipd-FP-e0E" secondAttribute="centerX" id="iq3-pb-Afu"/>
-                            <constraint firstItem="E9y-KT-iYR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="lPx-8P-XP3"/>
-                            <constraint firstItem="E9y-KT-iYR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ljA-0T-RIv"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="E9y-KT-iYR" secondAttribute="bottom" id="mST-Qm-1gx"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="IQv-0j-r8c"/>
-                                <exclude reference="QFf-W7-AHc"/>
-                                <exclude reference="aGG-ii-c60"/>
-                                <exclude reference="lPx-8P-XP3"/>
-                                <exclude reference="ljA-0T-RIv"/>
-                                <exclude reference="mST-Qm-1gx"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="7W3-Bd-PAn"/>
                     <connections>
