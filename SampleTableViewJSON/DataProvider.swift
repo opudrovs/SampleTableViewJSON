@@ -9,7 +9,7 @@
 import Foundation
 
 struct DataURL {
-    static let main = "http://olgapudrovska.com:8091/sampledata/posts"
+    static let main = "http://olgapudrovska.com/sampledata/posts.json"
 }
 
 class DataProvider {
